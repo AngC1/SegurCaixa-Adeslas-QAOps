@@ -86,7 +86,7 @@ Para maximizar la precisión del modelo y evitar la degradación por exceso de t
 
 ### 3.1 Poda Semántica del DOM (DOM Pruning en el Servidor MCP)
 - Enviar el HTML crudo de una página aseguradora a un LLM consume decenas de miles de tokens innecesarios.
-- En [`SeleniumMcpController.inspect_dom_locators`](file:///c:/Users/MACADIAD/OneDrive%20-%20AYESA%20IMPLEMENTACIONES%20T/_BFSI/_SegurCaixa_Adeslas/mcp-selenium-server/server.py#L72-L99), el servidor MCP filtra únicamente nodos accionables (`button, input, select, a, [data-testid]`), limita la respuesta a un inventario estructurado JSON (`tag`, `id`, `dataTestId`, `recommendedCss`, `selfHealingFallbackCss`) y reduce el consumo de contexto en más de un **92%**.
+- En [`SeleniumMcpController.inspect_dom_locators`](./mcp-selenium-server/server.py#L72-L99), el servidor MCP filtra únicamente nodos accionables (`button, input, select, a, [data-testid]`), limita la respuesta a un inventario estructurado JSON (`tag`, `id`, `dataTestId`, `recommendedCss`, `selfHealingFallbackCss`) y reduce el consumo de contexto en más de un **92%**.
 
 ### 3.2 Empaquetado de Contexto por Capas (Layered Context Retrieval)
 Cuando un agente aborda una tarea en este repositorio, debe cargar el contexto en este orden estricto:
