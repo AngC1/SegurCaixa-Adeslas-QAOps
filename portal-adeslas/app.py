@@ -13,6 +13,8 @@ import re
 import time
 from datetime import datetime, timezone
 from pathlib import Path
+import subprocess
+import sys
 from typing import Any, Dict, List
 
 from flask import Flask, Response, jsonify, redirect, render_template, request, send_file
@@ -250,27 +252,229 @@ CITAS_REGISTRADAS: List[Dict[str, Any]] = []
 
 JMETER_LATEST_REPORT: Dict[str, Any] = {
     "timestamp": datetime.now(timezone.utc).strftime("%Y-%m-%d %H:%M:%S UTC"),
-    "scenario": "Campaña Salud Invierno - Servicios para Clientes (50 VUs)",
-    "totalSamples": 180,
-    "throughputRps": 42.6,
-    "avgResponseMs": 68.4,
-    "p90Ms": 134.0,
-    "p95Ms": 178.5,
-    "p99Ms": 292.0,
+    "scenario": "Campaña Salud Invierno - Servicios para Clientes (12 VUs / 60 muestras)",
+    "totalSamples": 60,
+    "throughputRps": 44.8,
+    "avgResponseMs": 32.4,
+    "p90Ms": 64.0,
+    "p95Ms": 72.27,
+    "p99Ms": 94.5,
     "errorRatePct": 0.0,
-    "apdex": 0.97,
+    "apdex": 1.0,
     "slaStatus": "PASSED",
     "aiInsights": [
-        "SLA Global cumplido holgadamente: P95 = 178.5 ms frente al umbral máximo permitido de 450 ms.",
-        "El endpoint /api/v1/cuadro-medico mantiene una latencia P95 de 84 ms gracias a la indexación en memoria.",
-        "Se observa un incremento de latencia (+140 ms) en /api/v1/autorizaciones cuando el tipo de acto es 'Estudio Genético Oncológico' (validación de baremos complejos). Recomendación IA: cachear catálogo de baremos en Redis.",
+        "Cumplimiento SLA Global: APROBADO (P95 = 72.27 ms frente al objetivo < 450.0 ms; Error Rate = 0.0%).",
+        "Índice de satisfacción de usuario Apdex = 1.0 con un caudal sostenido de 44.8 req/s (60 transacciones).",
+        "Detección de Anomalía IA en 'POST /api/v1/autorizaciones (Estudio Genético)': P95 superior a la media general por validación síncrona de baremos de inspección médica. Acción recomendada vinculada a SCA-BUG-201: activar caché Redis.",
     ],
     "endpoints": [
-        {"label": "GET /api/v1/cuadro-medico", "samples": 80, "avgMs": 45.2, "p95Ms": 84.0, "errorPct": 0.0},
-        {"label": "POST /api/v1/autorizaciones", "samples": 50, "avgMs": 96.8, "p95Ms": 215.0, "errorPct": 0.0},
-        {"label": "POST /api/v1/reembolsos", "samples": 50, "avgMs": 77.1, "p95Ms": 148.0, "errorPct": 0.0},
+        {"label": "GET /api/v1/cuadro-medico", "samples": 24, "avgMs": 14.2, "p95Ms": 26.0, "errorPct": 0.0},
+        {"label": "POST /api/v1/autorizaciones", "samples": 12, "avgMs": 18.4, "p95Ms": 31.0, "errorPct": 0.0},
+        {"label": "POST /api/v1/autorizaciones (Estudio Genético)", "samples": 12, "avgMs": 68.5, "p95Ms": 76.2, "errorPct": 0.0},
+        {"label": "POST /api/v1/reembolsos", "samples": 12, "avgMs": 16.9, "p95Ms": 28.5, "errorPct": 0.0},
     ],
 }
+
+SELENIUM_LATEST_REPORT: Dict[str, Any] = {
+    "runId": "XRAY-EXEC-2026-103",
+    "timestamp": datetime.now(timezone.utc).strftime("%Y-%m-%d %H:%M:%S UTC"),
+    "browser": "Google Chrome Headless 1440x950 (Selenium WebDriver 4.52)",
+    "mcpServer": "ayesa-selenium-qaops v1.0.0 (JSON-RPC 2.0 stdio)",
+    "domLocatorsExtracted": 40,
+    "domPruningSavingPct": 92.4,
+    "selfHealingEventsCount": 0,
+    "selfHealingStatus": "ACTIVE · 40/40 Selectores Primarios Verificados (0 Roturas)",
+    "totalDurationMs": 5480,
+    "passed": 10,
+    "failed": 0,
+    "total": 10,
+    "screenshotUrl": "/api/v1/qaops/screenshot/mcp_selftest_servicios_clientes.png",
+    "mcpToolRuns": [
+        {
+            "tool": "selenium_start_session",
+            "target": "http://127.0.0.1:8080/servicios-para-clientes",
+            "durationMs": 610,
+            "status": "PASSED",
+            "output": "Sesión Chrome Headless activa (1440x950)",
+        },
+        {
+            "tool": "selenium_inspect_dom_locators",
+            "target": "DOM Pruning (button, input, select, [data-testid])",
+            "durationMs": 145,
+            "status": "PASSED",
+            "output": "40 selectores extraídos (-92.4% ahorro de tokens de contexto)",
+        },
+        {
+            "tool": "selenium_execute_adeslas_flow (cuadro_medico)",
+            "target": "Provincia=Madrid, Especialidad=Cardiología",
+            "durationMs": 397,
+            "status": "PASSED",
+            "output": "2 centros concertados verificados en Madrid",
+        },
+        {
+            "tool": "selenium_execute_adeslas_flow (autorizacion)",
+            "target": "Tarjeta=8000123456789012, Prescripción=RX-99281",
+            "durationMs": 395,
+            "status": "PASSED",
+            "output": "Estado AUTORIZADA · Código AUT-2026 generado",
+        },
+        {
+            "tool": "selenium_take_screenshot",
+            "target": "selenium-qaops/reports/mcp_selftest_servicios_clientes.png",
+            "durationMs": 180,
+            "status": "PASSED",
+            "output": "Evidencia PNG almacenada (85 KB)",
+        },
+        {
+            "tool": "alm_sync_test_result",
+            "target": "POST /api/v1/qaops/test-runs",
+            "durationMs": 42,
+            "status": "PASSED",
+            "output": "Sincronizado con Jira Xray / TestLink / Redmine",
+        },
+    ],
+    "testCasesDetail": [
+        {
+            "key": "SCA-TC-001",
+            "testLinkId": "TL-SCA-101",
+            "name": "test_tc001_catalogo_servicios_clientes",
+            "locatorPrimary": "#hero-title / #catalogo-servicios-grid .service-card",
+            "locatorFallback": "[data-testid='hero-title'] / [data-testid^='service-card-']",
+            "assertion": "6 tarjetas de servicio renderizadas y KPIs visibles",
+            "durationMs": 620,
+            "status": "PASSED",
+        },
+        {
+            "key": "SCA-TC-002",
+            "testLinkId": "TL-SCA-102",
+            "name": "test_tc002_busqueda_cuadro_medico_madrid_cardiologia",
+            "locatorPrimary": "#cm-provincia + #cm-especialidad + #btn-buscar-cuadro",
+            "locatorFallback": "[data-testid='select-provincia'] + [data-testid='btn-buscar-cuadro']",
+            "assertion": ">= 2 centros en Madrid con Cardiología (Ruber / Príncipe de Vergara)",
+            "durationMs": 540,
+            "status": "PASSED",
+        },
+        {
+            "key": "SCA-TC-003",
+            "testLinkId": "TL-SCA-103",
+            "name": "test_tc003_busqueda_urgencias_muface",
+            "locatorPrimary": "#cm-especialidad + #cm-poliza + #btn-buscar-cuadro",
+            "locatorFallback": "[data-testid='select-poliza'] -> Muface / Isfas",
+            "assertion": ">= 2 hospitales con Urgencias 24h concertados para Muface",
+            "durationMs": 510,
+            "status": "PASSED",
+        },
+        {
+            "key": "SCA-TC-004",
+            "testLinkId": "TL-SCA-104",
+            "name": "test_tc004_solicitud_autorizacion_exitosa",
+            "locatorPrimary": "#aut-tarjeta + #aut-tipo-acto + #btn-solicitar-autorizacion",
+            "locatorFallback": "[data-testid='input-aut-tarjeta'] + [data-testid='aut-resultado-alert']",
+            "assertion": "Estado == AUTORIZADA y código AUT-2026-XXXXX generado",
+            "durationMs": 590,
+            "status": "PASSED",
+        },
+        {
+            "key": "SCA-TC-005",
+            "testLinkId": "TL-SCA-105",
+            "name": "test_tc005_autorizacion_tarjeta_invalida",
+            "locatorPrimary": "#aut-tarjeta (valor '12345') + #aut-resultado-alert",
+            "locatorFallback": "[data-testid='aut-resultado-alert']",
+            "assertion": "Rechazo HTTP 400 + Alerta 'entre 12 y 16 dígitos numéricos'",
+            "durationMs": 480,
+            "status": "PASSED",
+        },
+        {
+            "key": "SCA-TC-006",
+            "testLinkId": "TL-SCA-106",
+            "name": "test_tc006_autorizacion_revision_medica",
+            "locatorPrimary": "POST /api/v1/autorizaciones (Estudio Genético Oncológico)",
+            "locatorFallback": "Contrato SDD RN-AUT-02",
+            "assertion": "Estado == PENDIENTE_REVISION_MEDICA (SLA 48h)",
+            "durationMs": 110,
+            "status": "PASSED",
+        },
+        {
+            "key": "SCA-TC-007",
+            "testLinkId": "TL-SCA-107",
+            "name": "test_tc007_reembolso_premier_calculo_90",
+            "locatorPrimary": "#rmb-nif + #rmb-modalidad + #rmb-importe + #rmb-iban",
+            "locatorFallback": "[data-testid='rmb-importe-abonado']",
+            "assertion": "Expediente RMB-2026-XXXXX y abono exacto 225.00 EUR (90% de 250 EUR)",
+            "durationMs": 640,
+            "status": "PASSED",
+        },
+        {
+            "key": "SCA-TC-008",
+            "testLinkId": "TL-SCA-108",
+            "name": "test_tc008_reembolso_iban_invalido",
+            "locatorPrimary": "#rmb-iban (valor 'ES1234') + #rmb-resultado-alert",
+            "locatorFallback": "[data-testid='rmb-resultado-alert']",
+            "assertion": "Rechazo HTTP 400 + Alerta formato IBAN ES + 22 dígitos",
+            "durationMs": 470,
+            "status": "PASSED",
+        },
+        {
+            "key": "SCA-TC-009",
+            "testLinkId": "TL-SCA-109",
+            "name": "test_tc009_login_area_cliente_tarjeta_digital",
+            "locatorPrimary": "#login-nif + #login-password + #btn-login-cliente",
+            "locatorFallback": "[data-testid='tarjeta-digital-adeslas']",
+            "assertion": "Titular Carlos Martínez Gómez + Póliza POL-SCA-908122 + Tarjeta Digital",
+            "durationMs": 580,
+            "status": "PASSED",
+        },
+        {
+            "key": "SCA-TC-010",
+            "testLinkId": "TL-SCA-110",
+            "name": "test_tc010_reserva_videoconsulta_medica",
+            "locatorPrimary": "#vc-especialidad + #vc-motivo + #btn-reservar-vc",
+            "locatorFallback": "[data-testid='vc-codigo-cita']",
+            "assertion": "Cita confirmada CIT-2026-XXXXX + Dra. Patricia Navarro Solís",
+            "durationMs": 540,
+            "status": "PASSED",
+        },
+    ],
+}
+
+EXECUTION_HISTORY: List[Dict[str, Any]] = [
+    {
+        "execKey": "SCA-EXEC-2026-003",
+        "buildName": "Build #103 · Suite Pytest + Selenium POM (E2E)",
+        "runner": "Pytest + Selenium WebDriver (Chrome Headless)",
+        "environment": "Local Simulation (127.0.0.1:8080)",
+        "testsScope": "SCA-TC-001 .. SCA-TC-010 (10 tests)",
+        "passed": 10,
+        "failed": 0,
+        "durationMs": 5480,
+        "status": "PASSED",
+        "timestamp": datetime.now(timezone.utc).strftime("%Y-%m-%d %H:%M:%S UTC"),
+    },
+    {
+        "execKey": "SCA-EXEC-2026-002",
+        "buildName": "Build #102 · Diagnóstico Servidor MCP de Selenium (--selftest)",
+        "runner": "Agente IA via MCP Server (ayesa-selenium-qaops)",
+        "environment": "Local Simulation (127.0.0.1:8080)",
+        "testsScope": "DOM Pruning (40 locators) + Flujos Cuadro Médico & Autorizaciones",
+        "passed": 6,
+        "failed": 0,
+        "durationMs": 1769,
+        "status": "PASSED",
+        "timestamp": datetime.now(timezone.utc).strftime("%Y-%m-%d %H:%M:%S UTC"),
+    },
+    {
+        "execKey": "SCA-EXEC-2026-001",
+        "buildName": "Build #101 · Performance Gate JMeter Asistido por IA",
+        "runner": "JMeter AI Assistant (ai_jmeter_assistant.py)",
+        "environment": "Local Simulation (12 VUs / 60 muestras)",
+        "testsScope": "SCA-TC-011 .. SCA-TC-012 (P95 = 72.27ms, Apdex = 1.0)",
+        "passed": 2,
+        "failed": 0,
+        "durationMs": 1420,
+        "status": "PASSED",
+        "timestamp": datetime.now(timezone.utc).strftime("%Y-%m-%d %H:%M:%S UTC"),
+    },
+]
 
 
 def load_alm_backlog() -> Dict[str, Any]:
@@ -312,6 +516,8 @@ def alm_dashboard_view():
         "alm_dashboard.html",
         alm=alm_data,
         jmeter=JMETER_LATEST_REPORT,
+        selenium=SELENIUM_LATEST_REPORT,
+        executions=EXECUTION_HISTORY,
     )
 
 
@@ -585,14 +791,22 @@ def api_crear_cita():
 @app.route("/api/v1/alm/backlog", methods=["GET"])
 def api_alm_backlog():
     data = load_alm_backlog()
-    return jsonify({"ok": True, "backlog": data, "jmeterReport": JMETER_LATEST_REPORT})
+    return jsonify(
+        {
+            "ok": True,
+            "backlog": data,
+            "seleniumReport": SELENIUM_LATEST_REPORT,
+            "jmeterReport": JMETER_LATEST_REPORT,
+            "executions": EXECUTION_HISTORY,
+        }
+    )
 
 
 @app.route("/api/v1/qaops/test-runs", methods=["POST"])
 def api_update_test_runs():
     """
     Recibe resultados de ejecución desde Pytest/Selenium o desde el Servidor MCP de Selenium
-    y actualiza en vivo el estado de los casos de prueba en el Backlog ALM.
+    y actualiza en vivo el estado de los casos de prueba en el Backlog ALM y en SELENIUM_LATEST_REPORT.
     """
     payload = request.get_json(silent=True) or {}
     results = payload.get("results", [])
@@ -601,10 +815,21 @@ def api_update_test_runs():
 
     alm_data = load_alm_backlog()
     updated_keys = []
+    total_ms = 0
+    passed_cnt = 0
+    failed_cnt = 0
+
     for res in results:
         tc_key = res.get("key")
         new_status = res.get("status", "PASSED").upper()
         duration_ms = res.get("durationMs")
+        if new_status == "PASSED":
+            passed_cnt += 1
+        else:
+            failed_cnt += 1
+        if duration_ms is not None:
+            total_ms += int(duration_ms)
+
         for tc in alm_data.get("testCases", []):
             if tc.get("key") == tc_key or tc.get("testLinkId") == tc_key:
                 tc["status"] = new_status
@@ -612,8 +837,43 @@ def api_update_test_runs():
                     tc["lastExecutionTimeMs"] = int(duration_ms)
                 updated_keys.append(tc["key"])
 
+        for s_tc in SELENIUM_LATEST_REPORT.get("testCasesDetail", []):
+            if s_tc.get("key") == tc_key or s_tc.get("testLinkId") == tc_key:
+                s_tc["status"] = new_status
+                if duration_ms is not None:
+                    s_tc["durationMs"] = int(duration_ms)
+
     if updated_keys:
         save_alm_backlog(alm_data)
+        now_str = datetime.now(timezone.utc).strftime("%Y-%m-%d %H:%M:%S UTC")
+        SELENIUM_LATEST_REPORT["timestamp"] = now_str
+        if len(results) >= 5:
+            SELENIUM_LATEST_REPORT["totalDurationMs"] = total_ms
+            SELENIUM_LATEST_REPORT["passed"] = passed_cnt
+            SELENIUM_LATEST_REPORT["failed"] = failed_cnt
+
+        EXECUTION_HISTORY.insert(
+            0,
+            {
+                "execKey": f"SCA-EXEC-2026-{100 + len(EXECUTION_HISTORY) + 1}",
+                "buildName": (
+                    f"Build #{100 + len(EXECUTION_HISTORY) + 1} · "
+                    + (
+                        "Suite Pytest + Selenium POM (E2E)"
+                        if len(results) >= 5
+                        else f"Sincronización Puntual ({', '.join(updated_keys)})"
+                    )
+                ),
+                "runner": payload.get("runner", "Pytest + Selenium WebDriver / MCP Agent"),
+                "environment": "Local Simulation (127.0.0.1:8080)",
+                "testsScope": f"{len(updated_keys)} caso(s): {', '.join(updated_keys[:4])}{'...' if len(updated_keys) > 4 else ''}",
+                "passed": passed_cnt,
+                "failed": failed_cnt,
+                "durationMs": total_ms or 550,
+                "status": "PASSED" if failed_cnt == 0 else "FAILED",
+                "timestamp": now_str,
+            },
+        )
 
     return jsonify({"ok": True, "updatedTestCases": updated_keys, "totalUpdated": len(updated_keys)})
 
@@ -624,7 +884,74 @@ def api_update_jmeter_report():
     payload = request.get_json(silent=True) or {}
     if payload:
         JMETER_LATEST_REPORT.update(payload)
+        EXECUTION_HISTORY.insert(
+            0,
+            {
+                "execKey": f"SCA-EXEC-2026-{100 + len(EXECUTION_HISTORY) + 1}",
+                "buildName": f"Build #{100 + len(EXECUTION_HISTORY) + 1} · Performance Gate JMeter IA",
+                "runner": "JMeter AI Assistant (ai_jmeter_assistant.py)",
+                "environment": f"Local Simulation ({JMETER_LATEST_REPORT.get('totalSamples', 60)} muestras)",
+                "testsScope": f"SCA-TC-011..012 (P95 = {JMETER_LATEST_REPORT.get('p95Ms')}ms, Apdex = {JMETER_LATEST_REPORT.get('apdex')})",
+                "passed": 2 if JMETER_LATEST_REPORT.get("slaStatus") == "PASSED" else 0,
+                "failed": 0 if JMETER_LATEST_REPORT.get("slaStatus") == "PASSED" else 2,
+                "durationMs": int(float(JMETER_LATEST_REPORT.get("p99Ms", 120)) * 12),
+                "status": JMETER_LATEST_REPORT.get("slaStatus", "PASSED"),
+                "timestamp": JMETER_LATEST_REPORT.get("timestamp"),
+            },
+        )
     return jsonify({"ok": True, "jmeterReport": JMETER_LATEST_REPORT})
+
+
+@app.route("/api/v1/qaops/screenshot/<filename>", methods=["GET"])
+def api_get_screenshot(filename: str):
+    safe_name = Path(filename).name
+    img_path = PROJECT_ROOT / "selenium-qaops" / "reports" / safe_name
+    if img_path.exists():
+        return send_file(img_path, mimetype="image/png")
+    return jsonify({"ok": False, "error": "Screenshot no encontrado"}), 404
+
+
+@app.route("/api/v1/qaops/trigger-selenium", methods=["POST"])
+def api_trigger_selenium():
+    """Lanza en vivo el Self-Test del Servidor MCP y la suite Pytest + Selenium desde el Dashboard ALM."""
+    t0 = time.perf_counter()
+    rc_mcp = subprocess.call(
+        [sys.executable, str(PROJECT_ROOT / "mcp-selenium-server" / "server.py"), "--selftest"],
+        cwd=str(PROJECT_ROOT),
+    )
+    rc_pytest = subprocess.call(
+        [sys.executable, "-m", "pytest", "selenium-qaops/tests/test_servicios_clientes_e2e.py", "-q"],
+        cwd=str(PROJECT_ROOT),
+    )
+    elapsed_ms = int((time.perf_counter() - t0) * 1000)
+    return jsonify(
+        {
+            "ok": rc_mcp == 0 and rc_pytest == 0,
+            "mcpExitCode": rc_mcp,
+            "pytestExitCode": rc_pytest,
+            "totalElapsedMs": elapsed_ms,
+            "seleniumReport": SELENIUM_LATEST_REPORT,
+        }
+    )
+
+
+@app.route("/api/v1/qaops/trigger-jmeter", methods=["POST"])
+def api_trigger_jmeter():
+    """Lanza en vivo la prueba de carga y análisis cognitivo JMeter IA desde el Dashboard ALM."""
+    t0 = time.perf_counter()
+    rc_jm = subprocess.call(
+        [sys.executable, str(PROJECT_ROOT / "jmeter-ai" / "ai_jmeter_assistant.py"), "--vus", "12", "--iterations", "5"],
+        cwd=str(PROJECT_ROOT),
+    )
+    elapsed_ms = int((time.perf_counter() - t0) * 1000)
+    return jsonify(
+        {
+            "ok": rc_jm == 0,
+            "exitCode": rc_jm,
+            "totalElapsedMs": elapsed_ms,
+            "jmeterReport": JMETER_LATEST_REPORT,
+        }
+    )
 
 
 @app.route("/api/v1/alm/export/<fmt>", methods=["GET"])

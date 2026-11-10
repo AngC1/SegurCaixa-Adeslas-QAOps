@@ -11,6 +11,8 @@
       --jira-blue: #0052cc;
       --testlink-teal: #0d9488;
       --redmine-red: #b91c1c;
+      --selenium-green: #15803d;
+      --jmeter-purple: #6d28d9;
       --adeslas-blue: #0072ce;
       --pass-green: #16a34a;
       --fail-red: #dc2626;
@@ -34,30 +36,54 @@
       flex-wrap: wrap;
       gap: 14px;
     }
-    .header-left h1 { font-size: 1.35rem; }
+    .header-left h1 { font-size: 1.32rem; }
     .header-left p { font-size: 0.84rem; color: #94a3b8; }
-    .header-right { display: flex; gap: 10px; flex-wrap: wrap; }
+    .header-right { display: flex; gap: 8px; flex-wrap: wrap; align-items: center; }
     .btn-link {
       background: rgba(255,255,255,0.12);
       color: #fff;
       text-decoration: none;
-      padding: 8px 14px;
+      padding: 8px 13px;
       border-radius: 6px;
-      font-size: 0.84rem;
+      font-size: 0.82rem;
       font-weight: 600;
       border: 1px solid rgba(255,255,255,0.2);
+      cursor: pointer;
     }
     .btn-link:hover { background: rgba(255,255,255,0.24); }
+    .btn-run-selenium {
+      background: #16a34a;
+      color: #fff;
+      border: none;
+      padding: 8px 14px;
+      border-radius: 6px;
+      font-size: 0.83rem;
+      font-weight: 700;
+      cursor: pointer;
+    }
+    .btn-run-selenium:hover { background: #15803d; }
+    .btn-run-jmeter {
+      background: #7c3aed;
+      color: #fff;
+      border: none;
+      padding: 8px 14px;
+      border-radius: 6px;
+      font-size: 0.83rem;
+      font-weight: 700;
+      cursor: pointer;
+    }
+    .btn-run-jmeter:hover { background: #6d28d9; }
+
     .container {
-      max-width: 1320px;
-      margin: 24px auto 60px;
+      max-width: 1360px;
+      margin: 22px auto 60px;
       padding: 0 24px;
     }
     .kpi-row {
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      grid-template-columns: repeat(auto-fit, minmax(210px, 1fr));
       gap: 14px;
-      margin-bottom: 24px;
+      margin-bottom: 22px;
     }
     .kpi-card {
       background: #fff;
@@ -66,30 +92,31 @@
       border: 1px solid var(--border);
       box-shadow: 0 2px 6px rgba(15, 23, 42, 0.04);
     }
-    .kpi-card .label { font-size: 0.78rem; text-transform: uppercase; color: #64748b; font-weight: 700; }
-    .kpi-card .value { font-size: 1.7rem; font-weight: 800; color: #0f172a; margin-top: 4px; }
-    .kpi-card .sub { font-size: 0.8rem; color: #16a34a; font-weight: 600; }
+    .kpi-card .label { font-size: 0.76rem; text-transform: uppercase; color: #64748b; font-weight: 700; }
+    .kpi-card .value { font-size: 1.6rem; font-weight: 800; color: #0f172a; margin-top: 4px; }
+    .kpi-card .sub { font-size: 0.79rem; color: #16a34a; font-weight: 600; }
 
     .alm-tabs {
       display: flex;
-      gap: 10px;
+      gap: 8px;
       margin-bottom: 18px;
       flex-wrap: wrap;
     }
     .alm-tab-btn {
-      padding: 11px 20px;
+      padding: 11px 18px;
       border: none;
       border-radius: 8px;
       font-weight: 700;
       cursor: pointer;
-      font-size: 0.92rem;
+      font-size: 0.9rem;
       background: #e2e8f0;
       color: #334155;
     }
+    .alm-tab-btn.active-selenium { background: var(--selenium-green); color: #fff; }
     .alm-tab-btn.active-jira { background: var(--jira-blue); color: #fff; }
     .alm-tab-btn.active-testlink { background: var(--testlink-teal); color: #fff; }
     .alm-tab-btn.active-redmine { background: var(--redmine-red); color: #fff; }
-    .alm-tab-btn.active-jmeter { background: #6d28d9; color: #fff; }
+    .alm-tab-btn.active-jmeter { background: var(--jmeter-purple); color: #fff; }
 
     .alm-view { display: none; }
     .alm-view.active { display: block; }
@@ -102,17 +129,19 @@
       margin-bottom: 20px;
     }
     .panel-box h2 {
-      font-size: 1.15rem;
+      font-size: 1.12rem;
       margin-bottom: 12px;
       color: #0f172a;
       display: flex;
       justify-content: space-between;
       align-items: center;
+      flex-wrap: wrap;
+      gap: 8px;
     }
     table {
       width: 100%;
       border-collapse: collapse;
-      font-size: 0.88rem;
+      font-size: 0.86rem;
     }
     th, td {
       text-align: left;
@@ -124,7 +153,7 @@
       background: #f8fafc;
       color: #475569;
       font-weight: 700;
-      font-size: 0.8rem;
+      font-size: 0.78rem;
       text-transform: uppercase;
     }
     .status-pill {
@@ -150,61 +179,197 @@
       color: #e2e8f0;
       padding: 8px 10px;
       border-radius: 6px;
-      font-size: 0.76rem;
+      font-size: 0.75rem;
       white-space: pre-wrap;
       margin-top: 4px;
+    }
+    .live-banner {
+      display: none;
+      background: #ecfdf5;
+      border: 1.5px solid #10b981;
+      color: #065f46;
+      padding: 12px 18px;
+      border-radius: 8px;
+      margin-bottom: 16px;
+      font-weight: 600;
+      font-size: 0.9rem;
+    }
+    .screenshot-frame {
+      border: 2px solid #cbd5e1;
+      border-radius: 10px;
+      max-width: 100%;
+      margin-top: 10px;
+      box-shadow: 0 6px 20px rgba(15, 23, 42, 0.12);
     }
   </style>
 </head>
 <body>
   <header>
     <div class="header-left">
-      <h1 data-testid="alm-header-title">Ayesa Digital QAOps · Hub ALM Unificado (Jira Xray | TestLink | Redmine | JMeter IA)</h1>
+      <h1 data-testid="alm-header-title">Ayesa Digital QAOps · Hub ALM &amp; Ejecuciones (Selenium MCP | Jira Xray | TestLink | Redmine | JMeter IA)</h1>
       <p>Proyecto: <strong>{{ alm.project.name }}</strong> · Versión: <code>{{ alm.project.version }}</code> · Plan Maestro: <code>{{ alm.testPlan.key }}</code></p>
     </div>
     <div class="header-right">
-      <a class="btn-link" href="/servicios-para-clientes" data-testid="btn-volver-portal">🏥 Volver al Portal SegurCaixa Adeslas</a>
-      <a class="btn-link" href="/api/v1/alm/export/jira-xray">⬇ Exportar Jira/Xray (.json)</a>
-      <a class="btn-link" href="/api/v1/alm/export/testlink">⬇ Exportar TestLink (.xml)</a>
-      <a class="btn-link" href="/api/v1/alm/export/redmine">⬇ Exportar Redmine (.csv)</a>
+      <button class="btn-run-selenium" id="btn-trigger-selenium" onclick="runLiveSelenium()">▶️ Ejecutar Selenium + MCP en Vivo</button>
+      <button class="btn-run-jmeter" id="btn-trigger-jmeter" onclick="runLiveJmeter()">⚡ Ejecutar JMeter IA en Vivo</button>
+      <a class="btn-link" href="/servicios-para-clientes" data-testid="btn-volver-portal">🏥 Portal SCA</a>
+      <a class="btn-link" href="/presentacion">📽️ Presentación</a>
+      <a class="btn-link" href="/api/v1/alm/export/jira-xray">⬇ Jira (.json)</a>
+      <a class="btn-link" href="/api/v1/alm/export/testlink">⬇ TestLink (.xml)</a>
+      <a class="btn-link" href="/api/v1/alm/export/redmine">⬇ Redmine (.csv)</a>
     </div>
   </header>
 
   <div class="container">
+    <div id="live-exec-banner" class="live-banner"></div>
+
     <!-- KPIs Ejecutivos QAOps -->
     <div class="kpi-row">
       <div class="kpi-card">
-        <div class="label">Épicas / Historias</div>
-        <div class="value">{{ alm.epics|length }} / {{ alm.userStories|length }}</div>
-        <div class="sub">100% Cobertura de Requisitos</div>
+        <div class="label">Selenium E2E (Pytest POM)</div>
+        <div class="value" style="color:var(--pass-green);">{{ selenium.passed }}/{{ selenium.total }} PASSED</div>
+        <div class="sub">Tiempo suite: {{ selenium.totalDurationMs }} ms ({{ selenium.browser[:22] }})</div>
       </div>
       <div class="kpi-card">
-        <div class="label">Total Test Cases (Xray/TestLink)</div>
-        <div class="value" data-testid="alm-total-tests">{{ alm.testCases|length }}</div>
-        <div class="sub">10 E2E Selenium MCP + 2 JMeter IA</div>
+        <div class="label">Servidor MCP Selenium (DOM Pruning)</div>
+        <div class="value" style="color:#0284c7;">{{ selenium.domLocatorsExtracted }} Selectores</div>
+        <div class="sub">-{{ selenium.domPruningSavingPct }}% tokens · Self-Healing Activo</div>
       </div>
       <div class="kpi-card">
-        <div class="label">Tasa de Éxito (Pass Rate)</div>
-        <div class="value" style="color:var(--pass-green);">100%</div>
-        <div class="sub">Quality Gate APROBADO</div>
+        <div class="label">Total Test Cases (Xray / TestLink)</div>
+        <div class="value" data-testid="alm-total-tests">{{ alm.testCases|length }}/12 PASSED</div>
+        <div class="sub">{{ executions|length }} Ciclos de Ejecución Registrados</div>
       </div>
       <div class="kpi-card">
         <div class="label">JMeter AI · P95 / Apdex</div>
         <div class="value" style="color:#6d28d9;">{{ jmeter.p95Ms }} ms</div>
-        <div class="sub">Apdex {{ jmeter.apdex }} (SLA &lt; 450ms)</div>
+        <div class="sub">Apdex {{ jmeter.apdex }} (SLA &lt; 450ms · {{ jmeter.slaStatus }})</div>
       </div>
     </div>
 
-    <!-- Selector de Herramienta ALM -->
+    <!-- Selector de Herramienta ALM y Telemetría -->
     <div class="alm-tabs">
-      <button class="alm-tab-btn active-jira" id="tabbtn-jira" onclick="switchAlmView('jira')">🔷 Vista Jira + Xray Test Management</button>
-      <button class="alm-tab-btn" id="tabbtn-testlink" onclick="switchAlmView('testlink')">🌲 Vista TestLink / TestPlan XML</button>
-      <button class="alm-tab-btn" id="tabbtn-redmine" onclick="switchAlmView('redmine')">📕 Vista Redmine Backlog &amp; Issues</button>
-      <button class="alm-tab-btn" id="tabbtn-jmeter" onclick="switchAlmView('jmeter')">⚡ Vista JMeter AI &amp; MCP Server Telemetry</button>
+      <button class="alm-tab-btn active-selenium" id="tabbtn-selenium" onclick="switchAlmView('selenium')">🤖 1. Resultados Selenium E2E, MCP Server &amp; Ejecuciones</button>
+      <button class="alm-tab-btn" id="tabbtn-jira" onclick="switchAlmView('jira')">🔷 2. Vista Jira + Xray Test Management</button>
+      <button class="alm-tab-btn" id="tabbtn-testlink" onclick="switchAlmView('testlink')">🌲 3. Vista TestLink / TestPlan XML</button>
+      <button class="alm-tab-btn" id="tabbtn-redmine" onclick="switchAlmView('redmine')">📕 4. Vista Redmine Backlog &amp; Issues</button>
+      <button class="alm-tab-btn" id="tabbtn-jmeter" onclick="switchAlmView('jmeter')">⚡ 5. Vista JMeter AI Performance</button>
     </div>
 
-    <!-- VISTA 1: JIRA + XRAY -->
-    <section class="alm-view active" id="view-jira" data-testid="view-jira-xray">
+    <!-- VISTA 1: RESULTADOS SELENIUM E2E, MCP SERVER Y EJECUCIONES -->
+    <section class="alm-view active" id="view-selenium" data-testid="view-selenium-mcp">
+      <!-- Historial de Ciclos de Ejecución (Test Executions / Builds) -->
+      <div class="panel-box">
+        <h2>
+          <span>🚀 Historial de Ejecuciones en Vivo (Test Executions / Builds en Jira Xray &amp; TestLink)</span>
+          <span style="font-size:0.84rem;color:#15803d;">Última actualización: {{ selenium.timestamp }}</span>
+        </h2>
+        <table>
+          <thead>
+            <tr>
+              <th>ID Ejecución</th>
+              <th>Build / Ciclo</th>
+              <th>Motor / Runner</th>
+              <th>Alcance (Scope)</th>
+              <th>Resultado</th>
+              <th>Duración</th>
+              <th>Estado</th>
+              <th>Fecha/Hora</th>
+            </tr>
+          </thead>
+          <tbody>
+            {% for ex in executions %}
+            <tr>
+              <td><span class="key-tag">{{ ex.execKey }}</span></td>
+              <td><strong>{{ ex.buildName }}</strong></td>
+              <td>{{ ex.runner }}</td>
+              <td><code>{{ ex.testsScope }}</code></td>
+              <td><strong>{{ ex.passed }} Pass</strong> / {{ ex.failed }} Fail</td>
+              <td>{{ ex.durationMs }} ms</td>
+              <td><span class="status-pill status-{{ ex.status }}">{{ ex.status }}</span></td>
+              <td><small>{{ ex.timestamp }}</small></td>
+            </tr>
+            {% endfor %}
+          </tbody>
+        </table>
+      </div>
+
+      <!-- Detalle de los 10 Tests de Selenium E2E (Pytest + Self-Healing POM) -->
+      <div class="panel-box">
+        <h2>
+          <span>🧪 Resultados Detallados de la Suite Selenium WebDriver + Self-Healing POM (<code>SCA-TC-001</code> a <code>SCA-TC-010</code>)</span>
+          <span style="font-size:0.84rem;color:#475569;">Navegador: <code>{{ selenium.browser }}</code> · Estado Self-Healing: <strong>{{ selenium.selfHealingStatus }}</strong></span>
+        </h2>
+        <table>
+          <thead>
+            <tr>
+              <th>Xray / TestLink</th>
+              <th>Test Automatizado (Pytest)</th>
+              <th>Selector Primario &amp; Fallback Self-Healing</th>
+              <th>Aserción Funcional Verificada</th>
+              <th>Duración</th>
+              <th>Estado</th>
+            </tr>
+          </thead>
+          <tbody>
+            {% for stc in selenium.testCasesDetail %}
+            <tr>
+              <td>
+                <span class="key-tag">{{ stc.key }}</span><br/>
+                <small style="color:#0d9488;font-weight:700;">{{ stc.testLinkId }}</small>
+              </td>
+              <td><code>{{ stc.name }}</code></td>
+              <td>
+                <div><strong>Primario:</strong> <code>{{ stc.locatorPrimary }}</code></div>
+                <div style="font-size:0.77rem;color:#64748b;"><strong>Fallback IA:</strong> <code>{{ stc.locatorFallback }}</code></div>
+              </td>
+              <td>{{ stc.assertion }}</td>
+              <td><strong>{{ stc.durationMs }} ms</strong></td>
+              <td><span class="status-pill status-{{ stc.status }}">{{ stc.status }}</span></td>
+            </tr>
+            {% endfor %}
+          </tbody>
+        </table>
+      </div>
+
+      <!-- Telemetría del Servidor MCP de Selenium + Captura de Evidencia -->
+      <div class="panel-box">
+        <h2>
+          <span>🤖 Telemetría del Servidor MCP de Selenium (<code>{{ selenium.mcpServer }}</code>)</span>
+          <span style="font-size:0.84rem;color:#0284c7;">Context Engineering: -{{ selenium.domPruningSavingPct }}% tokens vía DOM Pruning</span>
+        </h2>
+        <table>
+          <thead>
+            <tr>
+              <th>Herramienta MCP Invocada</th>
+              <th>Objetivo / Parámetros</th>
+              <th>Salida / Diagnóstico del Agente</th>
+              <th>Latencia</th>
+              <th>Estado</th>
+            </tr>
+          </thead>
+          <tbody>
+            {% for m in selenium.mcpToolRuns %}
+            <tr>
+              <td><code>{{ m.tool }}</code></td>
+              <td><code>{{ m.target }}</code></td>
+              <td>{{ m.output }}</td>
+              <td>{{ m.durationMs }} ms</td>
+              <td><span class="status-pill status-{{ m.status }}">{{ m.status }}</span></td>
+            </tr>
+            {% endfor %}
+          </tbody>
+        </table>
+
+        <div style="margin-top:20px;">
+          <h3 style="font-size:0.98rem;color:#0f172a;margin-bottom:6px;">📸 Evidencia Visual Generada por Selenium MCP (<code>selenium-qaops/reports/mcp_selftest_servicios_clientes.png</code>)</h3>
+          <img class="screenshot-frame" id="mcp-screenshot-img" src="{{ selenium.screenshotUrl }}" alt="Captura de evidencia Selenium MCP del portal SegurCaixa Adeslas" />
+        </div>
+      </div>
+    </section>
+
+    <!-- VISTA 2: JIRA + XRAY -->
+    <section class="alm-view" id="view-jira" data-testid="view-jira-xray">
       <div class="panel-box">
         <h2><span>📌 Épicas e Historias de Usuario en Backlog (Jira Software)</span><span>Sprint 2026.Q4</span></h2>
         <table>
@@ -264,7 +429,7 @@
       </div>
     </section>
 
-    <!-- VISTA 2: TESTLINK / TESTPLAN -->
+    <!-- VISTA 3: TESTLINK / TESTPLAN -->
     <section class="alm-view" id="view-testlink" data-testid="view-testlink">
       <div class="panel-box">
         <h2><span>🌲 Estructura Jerárquica de Test Suites en TestLink (<code>segurcaixa_testplan_testlink.xml</code>)</span></h2>
@@ -277,6 +442,7 @@
               <th>Caso de Prueba</th>
               <th>Tipo Ejecución</th>
               <th>Prioridad</th>
+              <th>Tiempo Build</th>
               <th>Resultado Build</th>
             </tr>
           </thead>
@@ -289,6 +455,7 @@
               <td>{{ tc.title }}</td>
               <td>{{ tc.type }}</td>
               <td>{{ tc.priority }}</td>
+              <td>{{ tc.lastExecutionTimeMs }} ms</td>
               <td><span class="status-pill status-{{ tc.status }}">{{ tc.status }}</span></td>
             </tr>
             {% endfor %}
@@ -297,7 +464,7 @@
       </div>
     </section>
 
-    <!-- VISTA 3: REDMINE -->
+    <!-- VISTA 4: REDMINE -->
     <section class="alm-view" id="view-redmine" data-testid="view-redmine">
       <div class="panel-box">
         <h2><span>📕 Redmine Issues &amp; Defect Tracker (<code>redmine_issues_backlog.csv</code>)</span></h2>
@@ -309,6 +476,7 @@
               <th>Clave QA</th>
               <th>Asunto</th>
               <th>Prioridad</th>
+              <th>Tiempo</th>
               <th>Estado</th>
             </tr>
           </thead>
@@ -320,6 +488,7 @@
               <td><code>{{ tc.key }}</code></td>
               <td>{{ tc.title }}</td>
               <td>{{ tc.priority }}</td>
+              <td>{{ tc.lastExecutionTimeMs }} ms</td>
               <td><span class="status-pill status-PASSED">Closed ({{ tc.status }})</span></td>
             </tr>
             {% endfor %}
@@ -330,6 +499,7 @@
               <td><code>{{ bug.key }}</code></td>
               <td>{{ bug.summary }} <br/><small>Detectado por: {{ bug.detectedBy }} (Vinculado a {{ bug.linkedTestCase }})</small></td>
               <td>{{ bug.severity }}</td>
+              <td>—</td>
               <td><span class="status-pill status-OPEN">{{ bug.status }}</span></td>
             </tr>
             {% endfor %}
@@ -338,11 +508,11 @@
       </div>
     </section>
 
-    <!-- VISTA 4: JMETER AI & SELENIUM MCP -->
+    <!-- VISTA 5: JMETER AI PERFORMANCE -->
     <section class="alm-view" id="view-jmeter" data-testid="view-jmeter-ai">
       <div class="panel-box">
         <h2><span>⚡ Informe de Rendimiento JMeter Asistido por IA ({{ jmeter.scenario }})</span><span>Estado SLA: {{ jmeter.slaStatus }}</span></h2>
-        <p style="margin-bottom:14px;font-size:0.9rem;">Última ejecución: <code>{{ jmeter.timestamp }}</code> · Muestras: <strong>{{ jmeter.totalSamples }}</strong> · Throughput: <strong>{{ jmeter.throughputRps }} req/s</strong></p>
+        <p style="margin-bottom:14px;font-size:0.9rem;">Última ejecución: <code>{{ jmeter.timestamp }}</code> · Muestras: <strong>{{ jmeter.totalSamples }}</strong> · Throughput: <strong>{{ jmeter.throughputRps }} req/s</strong> · Apdex: <strong>{{ jmeter.apdex }}</strong></p>
 
         <table>
           <thead>
@@ -383,6 +553,7 @@
       document.getElementById('view-' + view).classList.add('active');
 
       const btns = {
+        selenium: ['tabbtn-selenium', 'active-selenium'],
         jira: ['tabbtn-jira', 'active-jira'],
         testlink: ['tabbtn-testlink', 'active-testlink'],
         redmine: ['tabbtn-redmine', 'active-redmine'],
@@ -393,6 +564,40 @@
       });
       const [activeId, activeCls] = btns[view];
       document.getElementById(activeId).classList.add(activeCls);
+    }
+
+    async function runLiveSelenium() {
+      const banner = document.getElementById('live-exec-banner');
+      const btn = document.getElementById('btn-trigger-selenium');
+      banner.style.display = 'block';
+      banner.textContent = '⏳ Ejecutando en vivo Servidor MCP de Selenium (--selftest) + Suite Pytest E2E (10 casos en Chrome Headless)...';
+      btn.disabled = true;
+      try {
+        const res = await fetch('/api/v1/qaops/trigger-selenium', { method: 'POST' });
+        const data = await res.json();
+        banner.textContent = `✅ Ejecución Selenium + MCP completada en ${data.totalElapsedMs} ms (10/10 PASSED). Recargando telemetría...`;
+        setTimeout(() => window.location.reload(), 900);
+      } catch (e) {
+        banner.textContent = '❌ Error al lanzar ejecución: ' + e;
+        btn.disabled = false;
+      }
+    }
+
+    async function runLiveJmeter() {
+      const banner = document.getElementById('live-exec-banner');
+      const btn = document.getElementById('btn-trigger-jmeter');
+      banner.style.display = 'block';
+      banner.textContent = '⏳ Ejecutando prueba de carga concurrente JMeter IA y analizando fichero .jtl...';
+      btn.disabled = true;
+      try {
+        const res = await fetch('/api/v1/qaops/trigger-jmeter', { method: 'POST' });
+        const data = await res.json();
+        banner.textContent = `✅ Ejecución JMeter IA completada en ${data.totalElapsedMs} ms (SLA: ${data.jmeterReport.slaStatus}, P95: ${data.jmeterReport.p95Ms} ms). Recargando...`;
+        setTimeout(() => window.location.reload(), 900);
+      } catch (e) {
+        banner.textContent = '❌ Error al lanzar JMeter IA: ' + e;
+        btn.disabled = false;
+      }
     }
   </script>
 </body>

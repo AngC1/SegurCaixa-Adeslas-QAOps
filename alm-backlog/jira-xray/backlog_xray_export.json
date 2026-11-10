@@ -138,7 +138,7 @@
       "priority": "High",
       "component": "UI / Catálogo Servicios",
       "status": "PASSED",
-      "lastExecutionTimeMs": 200,
+      "lastExecutionTimeMs": 194,
       "gherkin": "Given el usuario navega a '/servicios-para-clientes'\nWhen la página termina de cargar\nThen se visualizan las 6 tarjetas de servicios principales (Cuadro Médico, Autorizaciones, Reembolsos, Área Cliente, Videoconsulta, Urgencias 24h)\nAnd el encabezado corporativo de SegurCaixa Adeslas es visible",
       "automationRef": "tests/test_servicios_clientes_e2e.py::test_tc001_catalogo_servicios_clientes"
     },
@@ -152,7 +152,7 @@
       "priority": "Highest",
       "component": "Cuadro Médico",
       "status": "PASSED",
-      "lastExecutionTimeMs": 240,
+      "lastExecutionTimeMs": 222,
       "gherkin": "Given el asegurado se encuentra en la pestaña 'Cuadro Médico'\nWhen selecciona la provincia 'Madrid' y la especialidad 'Cardiología'\nAnd pulsa en 'Buscar en Cuadro Médico'\nThen se muestran centros médicos en Madrid con la especialidad Cardiología y su estado de cita online",
       "automationRef": "tests/test_servicios_clientes_e2e.py::test_tc002_busqueda_cuadro_medico_madrid_cardiologia"
     },
@@ -166,7 +166,7 @@
       "priority": "High",
       "component": "Cuadro Médico",
       "status": "PASSED",
-      "lastExecutionTimeMs": 239,
+      "lastExecutionTimeMs": 195,
       "gherkin": "Given el asegurado accede al buscador de Cuadro Médico\nWhen selecciona especialidad 'Urgencias 24h' y modalidad 'Muface / Isfas'\nThen el listado devuelve únicamente hospitales con urgencias 24h concertados para mutualistas",
       "automationRef": "tests/test_servicios_clientes_e2e.py::test_tc003_busqueda_urgencias_muface"
     },
@@ -180,7 +180,7 @@
       "priority": "Highest",
       "component": "Autorizaciones Médicas",
       "status": "PASSED",
-      "lastExecutionTimeMs": 256,
+      "lastExecutionTimeMs": 245,
       "gherkin": "Given el asegurado abre la sección 'Autorizaciones Médicas'\nWhen introduce la tarjeta Adeslas '8000123456789012', tipo 'Resonancia Magnética', prescripción 'RX-99281' y centro 'Hospital Ruber Internacional'\nAnd envía el formulario de autorización\nThen el sistema aprueba la solicitud y genera un código 'AUT-2026-XXXXX' con estado 'AUTORIZADA'",
       "automationRef": "tests/test_servicios_clientes_e2e.py::test_tc004_solicitud_autorizacion_exitosa"
     },
@@ -194,7 +194,7 @@
       "priority": "High",
       "component": "Autorizaciones Médicas",
       "status": "PASSED",
-      "lastExecutionTimeMs": 250,
+      "lastExecutionTimeMs": 760,
       "gherkin": "Given el asegurado abre el formulario de 'Autorizaciones Médicas'\nWhen introduce una tarjeta inválida '12345' y pulsa solicitar\nThen el sistema rechaza la petición con HTTP 400 y muestra alerta de validación de formato de tarjeta",
       "automationRef": "tests/test_servicios_clientes_e2e.py::test_tc005_autorizacion_tarjeta_invalida"
     },
@@ -222,7 +222,7 @@
       "priority": "Highest",
       "component": "Reembolsos",
       "status": "PASSED",
-      "lastExecutionTimeMs": 243,
+      "lastExecutionTimeMs": 226,
       "gherkin": "Given el asegurado selecciona la gestión 'Solicitud de Reembolso'\nWhen introduce NIF '12345678Z', póliza 'Adeslas Premier (90%)', importe '250.00' EUR e IBAN 'ES9121000418450200051332'\nAnd envía la solicitud de reembolso\nThen el sistema confirma el expediente 'RMB-2026-XXXXX' con un importe estimado a abonar de '225.00 EUR'",
       "automationRef": "tests/test_servicios_clientes_e2e.py::test_tc007_reembolso_premier_calculo_90"
     },
@@ -236,7 +236,7 @@
       "priority": "Medium",
       "component": "Reembolsos",
       "status": "PASSED",
-      "lastExecutionTimeMs": 239,
+      "lastExecutionTimeMs": 740,
       "gherkin": "Given el asegurado completa el formulario de reembolso con un IBAN sin formato ES24 dígitos\nWhen intenta enviar la solicitud\nThen se muestra un mensaje de error indicando que el IBAN debe comenzar por ES seguido de 22 dígitos",
       "automationRef": "tests/test_servicios_clientes_e2e.py::test_tc008_reembolso_iban_invalido"
     },
@@ -250,7 +250,7 @@
       "priority": "High",
       "component": "Área Cliente",
       "status": "PASSED",
-      "lastExecutionTimeMs": 173,
+      "lastExecutionTimeMs": 180,
       "gherkin": "Given el usuario abre el panel de 'Área Cliente'\nWhen inicia sesión con el NIF '12345678Z' y clave 'Adeslas2026!'\nThen visualiza los datos del titular 'Carlos Martínez Gómez', póliza 'POL-SCA-908122' y su Tarjeta Digital activa",
       "automationRef": "tests/test_servicios_clientes_e2e.py::test_tc009_login_area_cliente_tarjeta_digital"
     },
@@ -264,7 +264,7 @@
       "priority": "Medium",
       "component": "Salud Digital",
       "status": "PASSED",
-      "lastExecutionTimeMs": 187,
+      "lastExecutionTimeMs": 172,
       "gherkin": "Given el cliente accede a 'Videoconsulta y Orientación Médica'\nWhen selecciona especialidad 'Medicina General', modalidad 'Videoconsulta Inmediata' y motivo de consulta\nThen recibe confirmación de cita con código 'CIT-2026-XXXXX' y enlace a sala de espera virtual",
       "automationRef": "tests/test_servicios_clientes_e2e.py::test_tc010_reserva_videoconsulta_medica"
     },
@@ -278,7 +278,7 @@
       "priority": "Highest",
       "component": "API Cuadro Médico",
       "status": "PASSED",
-      "lastExecutionTimeMs": 72,
+      "lastExecutionTimeMs": 70,
       "gherkin": "Given un escenario de carga con 50 usuarios concurrentes buscando facultativos\nWhen se ejecuta el plan JMeter durante la ventana de prueba\nThen el percentil 95 es inferior a 450ms y el Error Rate es 0.0%",
       "automationRef": "jmeter-ai/plans/segurcaixa_servicios_clientes.jmx::TG01_Busqueda_Cuadro_Medico"
     },
@@ -292,7 +292,7 @@
       "priority": "High",
       "component": "API Autorizaciones",
       "status": "PASSED",
-      "lastExecutionTimeMs": 83,
+      "lastExecutionTimeMs": 75,
       "gherkin": "Given una ráfaga concurrente de solicitudes de autorización médica\nWhen el motor JMeter AI analiza el fichero JTL resultante\nThen identifica el índice Apdex, detecta desviaciones de latencia en validaciones complejas y emite recomendaciones de caché Redis",
       "automationRef": "jmeter-ai/plans/segurcaixa_servicios_clientes.jmx::TG02_Tramite_Autorizaciones"
     }
