@@ -1,61 +1,61 @@
 timeStamp,elapsed,label,responseCode,responseMessage,threadName,dataType,success,bytes,Latency
-1794341610096,17.28,GET /api/v1/cuadro-medico,200,OK,TG_QAOps_VU-01,text,true,1002,17.28
-1794341610105,20.94,POST /api/v1/autorizaciones,201,OK,TG_QAOps_VU-01,text,true,447,20.94
-1794341610105,78.71,POST /api/v1/autorizaciones (Estudio Genético),201,OK,TG_QAOps_VU-01,text,true,468,78.71
-1794341610106,14.41,GET /api/v1/cuadro-medico,200,OK,TG_QAOps_VU-01,text,true,1039,14.41
-1794341610106,17.48,POST /api/v1/autorizaciones,201,OK,TG_QAOps_VU-02,text,true,447,17.48
-1794341610106,18.89,POST /api/v1/reembolsos,201,OK,TG_QAOps_VU-01,text,true,382,18.89
-1794341610107,19.49,POST /api/v1/reembolsos,201,OK,TG_QAOps_VU-02,text,true,382,19.49
-1794341610107,21.57,GET /api/v1/cuadro-medico,200,OK,TG_QAOps_VU-02,text,true,1039,21.57
-1794341610107,23.14,GET /api/v1/cuadro-medico,200,OK,TG_QAOps_VU-02,text,true,1002,23.14
-1794341610107,74.03,POST /api/v1/autorizaciones (Estudio Genético),201,OK,TG_QAOps_VU-02,text,true,468,74.03
-1794341610108,23.79,POST /api/v1/reembolsos,201,OK,TG_QAOps_VU-03,text,true,382,23.79
-1794341610108,81.81,POST /api/v1/autorizaciones (Estudio Genético),201,OK,TG_QAOps_VU-03,text,true,468,81.81
-1794341610121,11.09,GET /api/v1/cuadro-medico,200,OK,TG_QAOps_VU-03,text,true,1002,11.09
-1794341610121,13.18,GET /api/v1/cuadro-medico,200,OK,TG_QAOps_VU-03,text,true,1039,13.18
-1794341610124,10.04,POST /api/v1/reembolsos,201,OK,TG_QAOps_VU-04,text,true,382,10.04
-1794341610124,14.15,POST /api/v1/autorizaciones,201,OK,TG_QAOps_VU-03,text,true,447,14.15
-1794341610125,11.64,GET /api/v1/cuadro-medico,200,OK,TG_QAOps_VU-04,text,true,1039,11.64
-1794341610125,11.0,GET /api/v1/cuadro-medico,200,OK,TG_QAOps_VU-04,text,true,1002,11.0
-1794341610129,11.16,POST /api/v1/autorizaciones,201,OK,TG_QAOps_VU-04,text,true,447,11.16
-1794341610130,8.69,GET /api/v1/cuadro-medico,200,OK,TG_QAOps_VU-05,text,true,1039,8.69
-1794341610130,9.72,GET /api/v1/cuadro-medico,200,OK,TG_QAOps_VU-05,text,true,1002,9.72
-1794341610130,9.97,POST /api/v1/autorizaciones,201,OK,TG_QAOps_VU-05,text,true,447,9.97
-1794341610130,8.64,GET /api/v1/cuadro-medico,200,OK,TG_QAOps_VU-06,text,true,1002,8.64
-1794341610130,8.46,POST /api/v1/autorizaciones,201,OK,TG_QAOps_VU-06,text,true,447,8.46
-1794341610130,11.31,POST /api/v1/reembolsos,201,OK,TG_QAOps_VU-05,text,true,382,11.31
-1794341610130,9.21,POST /api/v1/reembolsos,201,OK,TG_QAOps_VU-06,text,true,382,9.21
-1794341610130,8.31,GET /api/v1/cuadro-medico,200,OK,TG_QAOps_VU-06,text,true,1039,8.31
-1794341610130,69.92,POST /api/v1/autorizaciones (Estudio Genético),201,OK,TG_QAOps_VU-04,text,true,468,69.92
-1794341610130,67.76,POST /api/v1/autorizaciones (Estudio Genético),201,OK,TG_QAOps_VU-05,text,true,468,67.76
-1794341610130,68.24,POST /api/v1/autorizaciones (Estudio Genético),201,OK,TG_QAOps_VU-06,text,true,468,68.24
-1794341610144,8.4,POST /api/v1/autorizaciones,201,OK,TG_QAOps_VU-07,text,true,447,8.4
-1794341610146,7.05,POST /api/v1/reembolsos,201,OK,TG_QAOps_VU-07,text,true,382,7.05
-1794341610146,67.05,POST /api/v1/autorizaciones (Estudio Genético),201,OK,TG_QAOps_VU-07,text,true,468,67.05
-1794341610148,6.16,GET /api/v1/cuadro-medico,200,OK,TG_QAOps_VU-07,text,true,1039,6.16
-1794341610150,5.96,GET /api/v1/cuadro-medico,200,OK,TG_QAOps_VU-07,text,true,1002,5.96
-1794341610150,65.96,POST /api/v1/autorizaciones (Estudio Genético),201,OK,TG_QAOps_VU-08,text,true,468,65.96
-1794341610152,5.41,POST /api/v1/reembolsos,201,OK,TG_QAOps_VU-08,text,true,382,5.41
-1794341610153,4.96,GET /api/v1/cuadro-medico,200,OK,TG_QAOps_VU-08,text,true,1039,4.96
-1794341610155,4.96,GET /api/v1/cuadro-medico,200,OK,TG_QAOps_VU-08,text,true,1002,4.96
-1794341610156,5.51,POST /api/v1/autorizaciones,201,OK,TG_QAOps_VU-08,text,true,447,5.51
-1794341610157,5.13,POST /api/v1/reembolsos,201,OK,TG_QAOps_VU-09,text,true,382,5.13
-1794341610158,5.32,GET /api/v1/cuadro-medico,200,OK,TG_QAOps_VU-09,text,true,1039,5.32
-1794341610160,16.68,GET /api/v1/cuadro-medico,200,OK,TG_QAOps_VU-09,text,true,1002,16.68
-1794341610162,4.04,POST /api/v1/autorizaciones,201,OK,TG_QAOps_VU-09,text,true,447,4.04
-1794341610163,63.64,POST /api/v1/autorizaciones (Estudio Genético),201,OK,TG_QAOps_VU-09,text,true,468,63.64
-1794341610164,2.94,GET /api/v1/cuadro-medico,200,OK,TG_QAOps_VU-10,text,true,1039,2.94
-1794341610166,2.38,GET /api/v1/cuadro-medico,200,OK,TG_QAOps_VU-10,text,true,1002,2.38
-1794341610167,2.31,POST /api/v1/autorizaciones,201,OK,TG_QAOps_VU-10,text,true,447,2.31
-1794341610168,63.31,POST /api/v1/autorizaciones (Estudio Genético),201,OK,TG_QAOps_VU-10,text,true,468,63.31
-1794341610169,2.15,POST /api/v1/reembolsos,201,OK,TG_QAOps_VU-10,text,true,382,2.15
-1794341610172,1.86,GET /api/v1/cuadro-medico,200,OK,TG_QAOps_VU-11,text,true,1002,1.86
-1794341610174,1.85,POST /api/v1/autorizaciones,201,OK,TG_QAOps_VU-11,text,true,447,1.85
-1794341610175,62.63,POST /api/v1/autorizaciones (Estudio Genético),201,OK,TG_QAOps_VU-11,text,true,468,62.63
-1794341610177,2.86,POST /api/v1/reembolsos,201,OK,TG_QAOps_VU-11,text,true,382,2.86
-1794341610179,2.68,GET /api/v1/cuadro-medico,200,OK,TG_QAOps_VU-11,text,true,1039,2.68
-1794341610180,2.81,POST /api/v1/autorizaciones,201,OK,TG_QAOps_VU-12,text,true,447,2.81
-1794341610180,63.99,POST /api/v1/autorizaciones (Estudio Genético),201,OK,TG_QAOps_VU-12,text,true,468,63.99
-1794341610183,2.83,POST /api/v1/reembolsos,201,OK,TG_QAOps_VU-12,text,true,382,2.83
-1794341610183,3.75,GET /api/v1/cuadro-medico,200,OK,TG_QAOps_VU-12,text,true,1039,3.75
-1794341610183,2.74,GET /api/v1/cuadro-medico,200,OK,TG_QAOps_VU-12,text,true,1002,2.74
+1794345434280,17.42,GET /api/v1/cuadro-medico,200,OK,TG_QAOps_VU-01,text,true,1002,17.42
+1794345434280,18.59,GET /api/v1/cuadro-medico,200,OK,TG_QAOps_VU-01,text,true,1039,18.59
+1794345434280,20.52,POST /api/v1/reembolsos,201,OK,TG_QAOps_VU-01,text,true,382,20.52
+1794345434280,20.86,POST /api/v1/autorizaciones,201,OK,TG_QAOps_VU-02,text,true,447,20.86
+1794345434280,22.62,POST /api/v1/autorizaciones,201,OK,TG_QAOps_VU-01,text,true,447,22.62
+1794345434280,81.78,POST /api/v1/autorizaciones (Estudio Genético),201,OK,TG_QAOps_VU-01,text,true,468,81.78
+1794345434293,18.76,POST /api/v1/reembolsos,201,OK,TG_QAOps_VU-02,text,true,382,18.76
+1794345434293,18.45,GET /api/v1/cuadro-medico,200,OK,TG_QAOps_VU-02,text,true,1002,18.45
+1794345434293,23.91,GET /api/v1/cuadro-medico,200,OK,TG_QAOps_VU-02,text,true,1039,23.91
+1794345434293,83.87,POST /api/v1/autorizaciones (Estudio Genético),201,OK,TG_QAOps_VU-02,text,true,468,83.87
+1794345434295,26.72,POST /api/v1/reembolsos,201,OK,TG_QAOps_VU-03,text,true,382,26.72
+1794345434295,83.66,POST /api/v1/autorizaciones (Estudio Genético),201,OK,TG_QAOps_VU-03,text,true,468,83.66
+1794345434296,11.96,GET /api/v1/cuadro-medico,200,OK,TG_QAOps_VU-03,text,true,1039,11.96
+1794345434311,15.71,GET /api/v1/cuadro-medico,200,OK,TG_QAOps_VU-03,text,true,1002,15.71
+1794345434312,9.86,GET /api/v1/cuadro-medico,200,OK,TG_QAOps_VU-04,text,true,1039,9.86
+1794345434312,11.25,POST /api/v1/autorizaciones,201,OK,TG_QAOps_VU-03,text,true,447,11.25
+1794345434312,11.22,POST /api/v1/reembolsos,201,OK,TG_QAOps_VU-04,text,true,382,11.22
+1794345434313,11.21,POST /api/v1/autorizaciones,201,OK,TG_QAOps_VU-04,text,true,447,11.21
+1794345434313,15.49,GET /api/v1/cuadro-medico,200,OK,TG_QAOps_VU-04,text,true,1002,15.49
+1794345434313,12.29,GET /api/v1/cuadro-medico,200,OK,TG_QAOps_VU-05,text,true,1039,12.29
+1794345434313,10.28,POST /api/v1/autorizaciones,201,OK,TG_QAOps_VU-05,text,true,447,10.28
+1794345434313,13.48,GET /api/v1/cuadro-medico,200,OK,TG_QAOps_VU-05,text,true,1002,13.48
+1794345434313,12.1,POST /api/v1/reembolsos,201,OK,TG_QAOps_VU-05,text,true,382,12.1
+1794345434313,12.51,GET /api/v1/cuadro-medico,200,OK,TG_QAOps_VU-06,text,true,1002,12.51
+1794345434313,70.96,POST /api/v1/autorizaciones (Estudio Genético),201,OK,TG_QAOps_VU-04,text,true,468,70.96
+1794345434313,71.77,POST /api/v1/autorizaciones (Estudio Genético),201,OK,TG_QAOps_VU-05,text,true,468,71.77
+1794345434327,11.64,POST /api/v1/autorizaciones,201,OK,TG_QAOps_VU-06,text,true,447,11.64
+1794345434329,70.05,POST /api/v1/autorizaciones (Estudio Genético),201,OK,TG_QAOps_VU-06,text,true,468,70.05
+1794345434330,7.55,POST /api/v1/reembolsos,201,OK,TG_QAOps_VU-06,text,true,382,7.55
+1794345434330,8.23,GET /api/v1/cuadro-medico,200,OK,TG_QAOps_VU-06,text,true,1039,8.23
+1794345434330,8.39,POST /api/v1/autorizaciones,201,OK,TG_QAOps_VU-07,text,true,447,8.39
+1794345434330,7.34,GET /api/v1/cuadro-medico,200,OK,TG_QAOps_VU-07,text,true,1039,7.34
+1794345434330,8.41,POST /api/v1/reembolsos,201,OK,TG_QAOps_VU-07,text,true,382,8.41
+1794345434330,8.53,GET /api/v1/cuadro-medico,200,OK,TG_QAOps_VU-07,text,true,1002,8.53
+1794345434330,66.05,POST /api/v1/autorizaciones (Estudio Genético),201,OK,TG_QAOps_VU-07,text,true,468,66.05
+1794345434330,66.09,POST /api/v1/autorizaciones (Estudio Genético),201,OK,TG_QAOps_VU-08,text,true,468,66.09
+1794345434343,5.91,POST /api/v1/reembolsos,201,OK,TG_QAOps_VU-08,text,true,382,5.91
+1794345434345,5.1,GET /api/v1/cuadro-medico,200,OK,TG_QAOps_VU-08,text,true,1039,5.1
+1794345434345,6.45,GET /api/v1/cuadro-medico,200,OK,TG_QAOps_VU-08,text,true,1002,6.45
+1794345434347,5.94,POST /api/v1/autorizaciones,201,OK,TG_QAOps_VU-08,text,true,447,5.94
+1794345434347,5.21,POST /api/v1/reembolsos,201,OK,TG_QAOps_VU-09,text,true,382,5.21
+1794345434347,5.07,GET /api/v1/cuadro-medico,200,OK,TG_QAOps_VU-09,text,true,1039,5.07
+1794345434347,5.87,GET /api/v1/cuadro-medico,200,OK,TG_QAOps_VU-09,text,true,1002,5.87
+1794345434355,5.36,POST /api/v1/autorizaciones,201,OK,TG_QAOps_VU-09,text,true,447,5.36
+1794345434355,5.69,GET /api/v1/cuadro-medico,200,OK,TG_QAOps_VU-10,text,true,1039,5.69
+1794345434355,5.64,GET /api/v1/cuadro-medico,200,OK,TG_QAOps_VU-10,text,true,1002,5.64
+1794345434355,65.87,POST /api/v1/autorizaciones (Estudio Genético),201,OK,TG_QAOps_VU-09,text,true,468,65.87
+1794345434360,5.54,POST /api/v1/autorizaciones,201,OK,TG_QAOps_VU-10,text,true,447,5.54
+1794345434362,65.05,POST /api/v1/autorizaciones (Estudio Genético),201,OK,TG_QAOps_VU-10,text,true,468,65.05
+1794345434363,3.57,POST /api/v1/reembolsos,201,OK,TG_QAOps_VU-10,text,true,382,3.57
+1794345434363,3.4,GET /api/v1/cuadro-medico,200,OK,TG_QAOps_VU-11,text,true,1002,3.4
+1794345434363,3.1,POST /api/v1/autorizaciones,201,OK,TG_QAOps_VU-11,text,true,447,3.1
+1794345434363,2.53,POST /api/v1/reembolsos,201,OK,TG_QAOps_VU-11,text,true,382,2.53
+1794345434363,63.21,POST /api/v1/autorizaciones (Estudio Genético),201,OK,TG_QAOps_VU-11,text,true,468,63.21
+1794345434373,21.86,GET /api/v1/cuadro-medico,200,OK,TG_QAOps_VU-11,text,true,1039,21.86
+1794345434373,21.98,POST /api/v1/autorizaciones,201,OK,TG_QAOps_VU-12,text,true,447,21.98
+1794345434377,63.7,POST /api/v1/autorizaciones (Estudio Genético),201,OK,TG_QAOps_VU-12,text,true,468,63.7
+1794345434378,2.84,POST /api/v1/reembolsos,201,OK,TG_QAOps_VU-12,text,true,382,2.84
+1794345434381,2.46,GET /api/v1/cuadro-medico,200,OK,TG_QAOps_VU-12,text,true,1039,2.46
+1794345434381,2.54,GET /api/v1/cuadro-medico,200,OK,TG_QAOps_VU-12,text,true,1002,2.54
