@@ -315,6 +315,14 @@ def alm_dashboard_view():
     )
 
 
+@app.route("/presentacion")
+def presentacion_ejecutiva_view():
+    pres_html = PROJECT_ROOT / "presentacion" / "index.html"
+    if pres_html.exists():
+        return send_file(pres_html)
+    return redirect("/servicios-para-clientes")
+
+
 # ---------------------------------------------------------------------------
 # Endpoints API REST (/api/v1/*) para Frontend, Selenium y JMeter AI
 # ---------------------------------------------------------------------------

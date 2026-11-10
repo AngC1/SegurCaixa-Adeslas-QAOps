@@ -1,0 +1,500 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Presentación Ejecutiva | Ayesa Digital QAOps &amp; SegurCaixa Adeslas (SCA)</title>
+  <style>
+    :root {
+      --ayesa-blue: #001ecc;
+      --ayesa-dark: #07103a;
+      --ayesa-magenta: #f00078;
+      --ayesa-cyan: #00b4e6;
+      --bg-light: #f4f6fb;
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      font-family: 'Segoe UI', system-ui, sans-serif;
+      background: #050b24;
+      color: #141c3a;
+      overflow: hidden;
+    }
+    .deck-viewport {
+      width: 100vw;
+      height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .slide {
+      display: none;
+      width: min(96vw, 1360px);
+      height: min(90vh, 765px);
+      background: var(--bg-light);
+      border-radius: 14px;
+      box-shadow: 0 20px 60px rgba(0,0,0,0.55);
+      padding: 36px 48px;
+      position: relative;
+      flex-direction: column;
+      justify-content: space-between;
+    }
+    .slide.active { display: flex; }
+    .slide-cover {
+      background: linear-gradient(135deg, #001489 0%, #0026ff 65%, #0066ff 100%);
+      color: #fff;
+    }
+    .slide-top {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      border-bottom: 2px solid #dbe3f0;
+      padding-bottom: 14px;
+    }
+    .section-pill {
+      background: var(--ayesa-blue);
+      color: #fff;
+      font-weight: 800;
+      font-size: 0.82rem;
+      padding: 6px 16px;
+      border-left: 5px solid var(--ayesa-magenta);
+      letter-spacing: 0.5px;
+      text-transform: uppercase;
+    }
+    .brand-mark {
+      font-weight: 900;
+      font-size: 1.4rem;
+      color: var(--ayesa-blue);
+    }
+    .brand-mark span { color: var(--ayesa-magenta); }
+    .slide h2 {
+      font-size: 1.75rem;
+      color: var(--ayesa-dark);
+      margin: 14px 0 18px;
+    }
+    .grid-3 {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 20px;
+      flex: 1;
+    }
+    .grid-4 {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 16px;
+      flex: 1;
+    }
+    .grid-2 {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 22px;
+      flex: 1;
+    }
+    .card {
+      background: #fff;
+      border-radius: 10px;
+      border: 1px solid #d8e2ee;
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+    }
+    .card-head {
+      background: var(--ayesa-blue);
+      color: #fff;
+      padding: 12px 16px;
+      font-weight: 800;
+      font-size: 0.96rem;
+    }
+    .card-head.magenta { background: var(--ayesa-magenta); }
+    .card-head.dark { background: var(--ayesa-dark); }
+    .card-head.cyan { background: #0077b6; }
+    .card-head.green { background: #0d9458; }
+    .card-body {
+      padding: 16px 18px;
+      font-size: 0.9rem;
+      line-height: 1.5;
+      color: #1e293b;
+    }
+    .card-body ul { padding-left: 18px; }
+    .card-body li { margin-bottom: 8px; }
+    .slide-footer {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-size: 0.8rem;
+      color: #64748b;
+      padding-top: 12px;
+      border-top: 1px solid #dbe3f0;
+    }
+    .controls {
+      position: fixed;
+      bottom: 16px;
+      right: 28px;
+      display: flex;
+      gap: 10px;
+      z-index: 100;
+    }
+    .controls button, .controls a {
+      background: rgba(255,255,255,0.15);
+      color: #fff;
+      border: 1px solid rgba(255,255,255,0.3);
+      padding: 8px 14px;
+      border-radius: 6px;
+      cursor: pointer;
+      font-weight: 700;
+      text-decoration: none;
+      font-size: 0.85rem;
+    }
+    .controls button:hover, .controls a:hover { background: var(--ayesa-magenta); }
+  </style>
+</head>
+<body>
+  <div class="deck-viewport">
+
+    <!-- SLIDE 1: PORTADA -->
+    <section class="slide slide-cover active">
+      <div style="display:flex;justify-content:space-between;align-items:center;">
+        <span style="background:var(--ayesa-magenta);padding:6px 16px;border-radius:4px;font-weight:800;font-size:0.85rem;">PROPUESTA EJECUTIVA + DEMOSTRADOR EN VIVO</span>
+        <div style="font-size:1.7rem;font-weight:900;">✻ ayesa <span style="font-weight:400;font-size:1.1rem;">digital</span></div>
+      </div>
+      <div style="max-width:1050px;border-left:6px solid var(--ayesa-magenta);padding-left:28px;">
+        <h1 style="font-size:2.7rem;line-height:1.15;margin-bottom:14px;">Capacidades en Adopción a la IA en SegurCaixa Adeslas (SCA)</h1>
+        <p style="font-size:1.45rem;color:#7dd3fc;margin-bottom:22px;">Aplicado al Desarrollo de SW, DevOps, DevSecOps y AI-Driven QAOps</p>
+        <p style="font-size:1.05rem;opacity:0.95;margin-bottom:10px;"><strong>Platform Engineering &amp; SDD, Prompt, Context, Harness &amp; Loop Engineering</strong></p>
+        <p style="font-size:0.96rem;opacity:0.9;">Incluye PoC funcional de <code>segurcaixaadeslas.es/servicios-para-clientes</code> con Servidor MCP de Selenium, JMeter asistido por IA y Hub ALM Unificado (Jira Xray / TestLink / Redmine).</p>
+      </div>
+      <div style="display:flex;justify-content:space-between;align-items:center;font-size:0.9rem;opacity:0.9;">
+        <span>Application Services &amp; Digital Impact · Hoja de Ruta v2.0</span>
+        <span>Usa las flechas ◀ ▶ del teclado para navegar (1 / 8)</span>
+      </div>
+    </section>
+
+    <!-- SLIDE 2: QUIÉNES SOMOS -->
+    <section class="slide">
+      <div>
+        <div class="slide-top">
+          <span class="section-pill">01 · Ayesa Digital – Quiénes Somos</span>
+          <div class="brand-mark">✻ ayesa <span>digital</span></div>
+        </div>
+        <h2>Liderazgo en Servicios TI (#1 Whitelane 2026) y Fiabilidad en la Entrega</h2>
+      </div>
+      <div class="grid-3">
+        <div class="card">
+          <div class="card-head">Escala Global y Foco BFSI</div>
+          <div class="card-body">
+            <ul>
+              <li><strong>Top 5</strong> de proveedores de servicios TI en España.</li>
+              <li><strong>580 M€</strong> cifra de negocio y <strong>11.000+ profesionales</strong> en 10 países.</li>
+              <li>Presencia consolidada en Banca y Seguros: <strong>SegurCaixa Adeslas, CaixaBank, BBVA, Santander, Kutxabank, Mapfre</strong>.</li>
+              <li>Filosofía <em>Making It Happen</em>: impacto real y acompañamiento end-to-end.</li>
+            </ul>
+          </div>
+        </div>
+        <div class="card">
+          <div class="card-head magenta">#1 Satisfacción en España (86%)</div>
+          <div class="card-body">
+            <ul>
+              <li>Líderes en el ranking <strong>Whitelane Research &amp; Eraneos 2026</strong> con un <strong>86%</strong> de satisfacción general.</li>
+              <li>Acreditaciones: <strong>CMMI Nivel 5, ENS Categoría Alta, ISO 27001, ISO 22301 e ISO 42001 / AI Act</strong>.</li>
+              <li>Más de 500 certificaciones activas en AWS, Azure, Google Cloud, SAFe 6, DASA e ISTQB.</li>
+            </ul>
+          </div>
+        </div>
+        <div class="card">
+          <div class="card-head dark">El Reto Real en SCA: De Licencias a Valor</div>
+          <div class="card-body">
+            <ul>
+              <li>Adopción asimétrica actual: <strong>Python/Data (78%)</strong>, <strong>QA &amp; Testing (44%)</strong> y <strong>Core/ERP (22%)</strong>.</li>
+              <li>Nuestra propuesta v2.0 cierra la brecha entre la inversión en IA ya realizada por SCA y la <strong>productividad medible en dirección</strong>.</li>
+              <li>Incorpora SLAs por fase SDLC, gobierno multiproveedor y ROI cuantificado.</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+      <div class="slide-footer">
+        <span>Presentación Corporativa &amp; Propuesta SCA 2026</span>
+        <span>Diapositiva 2 / 8</span>
+      </div>
+    </section>
+
+    <!-- SLIDE 3: SOLUCIÓN EN 3 SERVICIOS -->
+    <section class="slide">
+      <div>
+        <div class="slide-top">
+          <span class="section-pill">02 · Solución Integral en 3 Servicios</span>
+          <div class="brand-mark">✻ ayesa <span>digital</span></div>
+        </div>
+        <h2>Arquitectura Operativa Interconectada: OCM + Agentic SDLC + Agentic QAOps</h2>
+      </div>
+      <div class="grid-3">
+        <div class="card">
+          <div class="card-head magenta">Servicio 01 · Oficina OCM &amp; Gobierno</div>
+          <div class="card-body">
+            <ul>
+              <li><strong>Foco:</strong> Cambio cultural, gobierno multiproveedor y medición continua en <strong>Dashboard AXIA / ValueOps</strong>.</li>
+              <li><strong>AI Coaching:</strong> Re-capacitación de ingenieros para pasar de <em>"escribir código"</em> a <em>"diseñar el arnés"</em>.</li>
+              <li><strong>Resultados tempranos:</strong> Primer dashboard en producción en <strong>Semana 6</strong> y primer informe CMR con datos reales en <strong>Semana 8</strong>.</li>
+            </ul>
+          </div>
+        </div>
+        <div class="card">
+          <div class="card-head">Servicio 02 · Agentic AI-Driven SDLC</div>
+          <div class="card-body">
+            <ul>
+              <li><strong>Foco:</strong> Motor autónomo DevOps y DevSecOps sobre <strong>IDP Backstage.io / Roadie</strong> con Golden Paths YAML.</li>
+              <li><strong>Seguridad Shift-Left:</strong> Gobierno normativo continuo con <strong>Laguun vCISO</strong> (DORA, NIS2, ENS) y <strong>Xygeni</strong> (SAST/DAST/SCA + OWASP LLM/MCP).</li>
+              <li><strong>IaC &amp; GitOps:</strong> Terraform, Ansible, CloudBees, GitHub Actions y ArgoCD.</li>
+            </ul>
+          </div>
+        </div>
+        <div class="card">
+          <div class="card-head cyan">Servicio 03 · AI-Driven QAOps</div>
+          <div class="card-body">
+            <ul>
+              <li><strong>Foco:</strong> Validación continua TDD/BDD, inmunidad del sistema y eliminación de UAT manual repetitivo.</li>
+              <li><strong>Agentic Testing:</strong> Integración vía <strong>MCP Server</strong> con Selenium WebDriver (Self-Healing) y <strong>JMeter asistido por IA</strong>.</li>
+              <li><strong>DataOps TDM:</strong> Aprovisionamiento automatizado de datos sintéticos y enmascarados con <strong>Accelario</strong>.</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+      <div class="slide-footer">
+        <span>Modelo Operativo Agent-First para SegurCaixa Adeslas</span>
+        <span>Diapositiva 3 / 8</span>
+      </div>
+    </section>
+
+    <!-- SLIDE 4: NÚCLEO TÉCNICO SDD, PROMPT, CONTEXT, HARNESS -->
+    <section class="slide">
+      <div>
+        <div class="slide-top">
+          <span class="section-pill">02 · Núcleo Técnico de Ingeniería Agéntica</span>
+          <div class="brand-mark">✻ ayesa <span>digital</span></div>
+        </div>
+        <h2>Plataforma como Producto: SDD + Prompt + Context + Harness &amp; Loop Engineering</h2>
+      </div>
+      <div class="grid-4">
+        <div class="card">
+          <div class="card-head dark">1. Spec-Driven Dev (SDD)</div>
+          <div class="card-body">
+            <ul>
+              <li>La especificación (<code>specs/sdd-segurcaixa-servicios-clientes.md</code>) es la fuente única de verdad.</li>
+              <li>Tríada de Agentes: <strong>Planificador</strong>, <strong>Implementador</strong> y <strong>Revisor QA</strong>.</li>
+              <li>Trazabilidad 1:1 Épica → Historia → Gherkin → Test (<code>@pytest.mark.xray</code>).</li>
+            </ul>
+          </div>
+        </div>
+        <div class="card">
+          <div class="card-head">2. Prompt Engineering</div>
+          <div class="card-body">
+            <ul>
+              <li>Directivas estructuradas bajo el patrón <strong>R-C-I-O-V</strong> (Role, Context, Invariants, Output, Verification).</li>
+              <li>Prompts especializados para Page Objects resilientes, auto-curación DOM y diagnóstico SRE de JMeter.</li>
+            </ul>
+          </div>
+        </div>
+        <div class="card">
+          <div class="card-head cyan">3. Context Engineering</div>
+          <div class="card-body">
+            <ul>
+              <li>Protocolo <strong>MCP</strong> + RAG + Memoria compartida en el Hub ALM.</li>
+              <li><strong>DOM Pruning (-92% tokens):</strong> <code>selenium_inspect_dom_locators</code> filtra solo nodos interactivos.</li>
+              <li>Carga jerárquica en 4 capas sin releer todo el repositorio.</li>
+            </ul>
+          </div>
+        </div>
+        <div class="card">
+          <div class="card-head magenta">4. Harness &amp; Loop Eng.</div>
+          <div class="card-body">
+            <ul>
+              <li>Reglas normativas en <code>AGENTS.md</code> y <code>AGENT.md</code>.</li>
+              <li>Arnés determinista (<code>run_qaops_suite.py</code>) que valida todo el sistema en <strong>&lt; 10 segundos</strong>.</li>
+              <li>Cada error detectado se convierte en una regla automatizada.</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+      <div class="slide-footer">
+        <span>Implementado en el repositorio github.com/AngC1/SegurCaixa-Adeslas-QAOps</span>
+        <span>Diapositiva 4 / 8</span>
+      </div>
+    </section>
+
+    <!-- SLIDE 5: DEMOSTRADOR PORTAL SEGURCAIXA ADESLAS + HUB ALM -->
+    <section class="slide">
+      <div>
+        <div class="slide-top">
+          <span class="section-pill">03 · Demostrador Real Ejecutable SCA</span>
+          <div class="brand-mark">✻ ayesa <span>digital</span></div>
+        </div>
+        <h2>Simulación de <code>/servicios-para-clientes</code> y Hub ALM (Jira Xray / TestLink / Redmine)</h2>
+      </div>
+      <div class="grid-2">
+        <div class="card">
+          <div class="card-head">Portal Simulado SegurCaixa Adeslas (5 Flujos Reales)</div>
+          <div class="card-body">
+            <ul>
+              <li><strong>1. Cuadro Médico y Urgencias 24h (<code>SCA-EP-01</code>):</strong> Filtro multicriterio por provincia, especialidad y póliza (Plena Plus, Seniors, Muface/Isfas).</li>
+              <li><strong>2. Autorizaciones Médicas Online (<code>SCA-EP-02</code>):</strong> Validación de tarjeta Adeslas (12-16 dígitos), aprobación automática (<code>AUT-2026-XXXXX</code>) y derivación facultativa en Estudios Genéticos.</li>
+              <li><strong>3. Reembolso de Facturas (<code>SCA-EP-03</code>):</strong> Cálculo automático del <strong>90%</strong> (Adeslas Premier) y <strong>80%</strong> (Adeslas Extra) + validación IBAN.</li>
+              <li><strong>4. Área Cliente y Tarjeta Digital + 5. Videoconsulta Médica 24h (<code>SCA-EP-04</code>).</strong></li>
+            </ul>
+          </div>
+        </div>
+        <div class="card">
+          <div class="card-head dark">Hub ALM Unificado y Exportables Oficiales</div>
+          <div class="card-body">
+            <ul>
+              <li><strong>Vista Jira + Xray (<code>backlog_xray_export.json</code>):</strong> 5 Épicas, 6 Historias de Usuario, Test Plan <code>SCA-TP-2026-Q4</code>, 12 Test Cases con Gherkin y 2 Defectos.</li>
+              <li><strong>Vista TestLink (<code>segurcaixa_testplan_testlink.xml</code>):</strong> 5 Test Suites jerárquicas (<code>TL-SCA-101</code> a <code>TL-SCA-112</code>).</li>
+              <li><strong>Vista Redmine (<code>redmine_issues_backlog.csv</code>):</strong> Trazabilidad completa de peticiones QA (<code>#4011..#4022</code>) y bugs (<code>#4091..#4092</code>).</li>
+              <li>Actualización en tiempo real vía API REST (<code>POST /api/v1/qaops/test-runs</code>).</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+      <div class="slide-footer">
+        <span>Accesos vivos: http://127.0.0.1:8080/servicios-para-clientes  |  http://127.0.0.1:8080/alm-dashboard</span>
+        <span>Diapositiva 5 / 8</span>
+      </div>
+    </section>
+
+    <!-- SLIDE 6: SELENIUM MCP SERVER + JMETER IA -->
+    <section class="slide">
+      <div>
+        <div class="slide-top">
+          <span class="section-pill">03 · Ejecución Técnica QAOps (12/12 PASSED)</span>
+          <div class="brand-mark">✻ ayesa <span>digital</span></div>
+        </div>
+        <h2>Servidor MCP de Selenium (Self-Healing) + Motor JMeter Asistido por IA</h2>
+      </div>
+      <div class="grid-2">
+        <div class="card">
+          <div class="card-head green">Selenium E2E + MCP Server (10/10 PASSED en 5.48s)</div>
+          <div class="card-body">
+            <ul>
+              <li><strong>Servidor MCP (<code>mcp-selenium-server/server.py</code>):</strong> Expone 7 herramientas JSON-RPC a agentes IA para iniciar sesión Headless, extraer 40 selectores DOM con poda semántica, ejecutar flujos de negocio y capturar evidencias PNG.</li>
+              <li><strong>Self-Healing POM (<code>servicios_clientes_page.py</code>):</strong> Método <code>find_healed()</code> con resolución multicandidato y fallback automático Chrome → Edge.</li>
+              <li><strong>10 Tests E2E certificados:</strong> <code>SCA-TC-001</code> a <code>SCA-TC-010</code> sincronizados con el Hub ALM.</li>
+            </ul>
+          </div>
+        </div>
+        <div class="card">
+          <div class="card-head magenta">JMeter 5.6 + Analizador Cognitivo IA (SLA PASSED)</div>
+          <div class="card-body">
+            <ul>
+              <li><strong>Plan JMX nativo:</strong> <code>segurcaixa_servicios_clientes.jmx</code> con 3 Thread Groups + dataset parametrizado CSV.</li>
+              <li><strong>Métricas certificadas (<code>AI_PERFORMANCE_REPORT.md</code>):</strong>
+                <ul>
+                  <li>Percentil 95 (P95): <strong>72.27 ms</strong> (objetivo SLA &lt; 450 ms).</li>
+                  <li>Índice Apdex: <strong>1.00</strong> | Tasa de Error: <strong>0.0%</strong>.</li>
+                </ul>
+              </li>
+              <li><strong>Diagnóstico SRE IA:</strong> Detecta el incremento de latencia en autorizaciones de Estudio Genético y lo vincula automáticamente con el defecto <code>SCA-BUG-201</code> recomendando caché Redis.</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+      <div class="slide-footer">
+        <span>Certificación completa reproducible con: python run_qaops_suite.py</span>
+        <span>Diapositiva 6 / 8</span>
+      </div>
+    </section>
+
+    <!-- SLIDE 7: ROADMAP E IMPACTO -->
+    <section class="slide">
+      <div>
+        <div class="slide-top">
+          <span class="section-pill">04 · Hoja de Ruta e Impacto Cuantificable</span>
+          <div class="brand-mark">✻ ayesa <span>digital</span></div>
+        </div>
+        <h2>Plan de PoC (8 Semanas), Rollout OCM (24 Semanas) y Compromiso de Valor</h2>
+      </div>
+      <div class="grid-3">
+        <div class="card">
+          <div class="card-head">PoC en 8 Semanas</div>
+          <div class="card-body">
+            <ul>
+              <li><strong>Semana 1:</strong> Confirmación de casos de uso con SCA.</li>
+              <li><strong>Semanas 1-3:</strong> Setup Plataforma ValueOps, Hub ALM, MCP Server y Backstage.</li>
+              <li><strong>Semanas 2-6:</strong> Ejecución comparativa (Tradicional vs. Optimizado con SDD &amp; Harness).</li>
+              <li><strong>Semanas 7-8:</strong> Análisis de métricas y exposición ejecutiva de conclusiones.</li>
+            </ul>
+          </div>
+        </div>
+        <div class="card">
+          <div class="card-head dark">Escalado OCM (4 Fases · 24 Semanas)</div>
+          <div class="card-body">
+            <ul>
+              <li><strong>F1 (S1-4):</strong> Diagnóstico, telemetría Command Center y firma de SLAs.</li>
+              <li><strong>F2 (S5-8):</strong> Dashboard AXIA en S6 y primer informe ejecutivo real en S8.</li>
+              <li><strong>F3 (S9-20):</strong> Rollout por oleadas, Comité Multiproveedor y auditoría AI Act.</li>
+              <li><strong>F4 (S21-24):</strong> Informe de ROI Fase 1 y transferencia de autogestión a SCA.</li>
+            </ul>
+          </div>
+        </div>
+        <div class="card">
+          <div class="card-head magenta">Impacto Medible (KPI Dashboard)</div>
+          <div class="card-body">
+            <ul>
+              <li><strong>20% - 40%</strong> Reducción del Time-to-Market.</li>
+              <li><strong>95%</strong> Automatización QA y ahorro de recirculación.</li>
+              <li><strong>18% → &lt;2%</strong> Reducción de retrabajos.</li>
+              <li><strong>35%</strong> Optimización del TCO operativo.</li>
+              <li><strong>100%</strong> Cumplimiento DORA, NIS2, ENS y AI Act.</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+      <div class="slide-footer">
+        <span>Service Value Framework (SVF) · Ayesa Digital</span>
+        <span>Diapositiva 7 / 8</span>
+      </div>
+    </section>
+
+    <!-- SLIDE 8: CIERRE -->
+    <section class="slide slide-cover">
+      <div style="display:flex;justify-content:space-between;align-items:center;">
+        <span style="background:var(--ayesa-magenta);padding:6px 16px;border-radius:4px;font-weight:800;font-size:0.85rem;">MAKING IT HAPPEN</span>
+        <div style="font-size:1.7rem;font-weight:900;">✻ ayesa <span style="font-weight:400;font-size:1.1rem;">digital</span></div>
+      </div>
+      <div>
+        <h1 style="font-size:3.2rem;margin-bottom:12px;">Gracias.</h1>
+        <p style="font-size:1.3rem;color:#7dd3fc;margin-bottom:26px;">De la Inversión en IA a la Productividad Medible y la Inmunidad QAOps en SegurCaixa Adeslas</p>
+        <div style="background:rgba(255,255,255,0.12);padding:22px 26px;border-radius:12px;max-width:880px;line-height:1.7;">
+          <strong>Ángel Carrasco</strong> · Application Services &amp; Digital Impact / Sr. Manager BD<br/>
+          📧 <code>adcarrasco@ayesa-digital.com</code> · 🌐 <code>www.ayesa.com</code> · 📞 +34 954 467 046<br/>
+          🔗 <strong>GitHub Repo:</strong> <a href="https://github.com/AngC1/SegurCaixa-Adeslas-QAOps" target="_blank" style="color:#7dd3fc;">https://github.com/AngC1/SegurCaixa-Adeslas-QAOps</a>
+        </div>
+      </div>
+      <div style="display:flex;justify-content:space-between;align-items:center;font-size:0.9rem;">
+        <span>Ayesa Digital 2026 · Todos los derechos reservados</span>
+        <span>Diapositiva 8 / 8</span>
+      </div>
+    </section>
+
+  </div>
+
+  <div class="controls">
+    <a href="/servicios-para-clientes">🏥 Portal SCA</a>
+    <a href="/alm-dashboard">📊 Hub ALM</a>
+    <button onclick="prevSlide()">◀ Anterior</button>
+    <button onclick="nextSlide()">Siguiente ▶</button>
+  </div>
+
+  <script>
+    let idx = 0;
+    const slides = document.querySelectorAll('.slide');
+    function showSlide(n) {
+      slides.forEach(s => s.classList.remove('active'));
+      idx = (n + slides.length) % slides.length;
+      slides[idx].classList.add('active');
+    }
+    function nextSlide() { showSlide(idx + 1); }
+    function prevSlide() { showSlide(idx - 1); }
+    document.addEventListener('keydown', e => {
+      if (e.key === 'ArrowRight' || e.key === ' ') nextSlide();
+      if (e.key === 'ArrowLeft') prevSlide();
+    });
+  </script>
+</body>
+</html>
