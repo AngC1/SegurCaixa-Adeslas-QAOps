@@ -1,0 +1,43 @@
+name: Ayesa Digital QAOps - SegurCaixa Adeslas Continuous Testing
+
+on:
+  push:
+    branches: [ main, develop ]
+  pull_request:
+    branches: [ main ]
+  workflow_dispatch:
+
+jobs:
+  qaops-full-certification:
+    name: QAOps Gate (Portal + Selenium MCP + JMeter AI + ALM Sync)
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v4
+
+      - name: Setup Python 3.11
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      - name: Install Dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install -r requirements.txt
+
+      - name: Execute Full QAOps Suite (SUT + Selenium E2E + MCP Self-Test + JMeter AI)
+        run: |
+          python run_qaops_suite.py
+
+      - name: Upload QAOps Artifacts (ALM Exports, JTL, AI Performance Report, Screenshots)
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: ayesa-qaops-certification-bundle
+          path: |
+            alm-backlog/jira-xray/backlog_xray_export.json
+            alm-backlog/testlink/segurcaixa_testplan_testlink.xml
+            alm-backlog/redmine/redmine_issues_backlog.csv
+            jmeter-ai/results/
+            selenium-qaops/reports/

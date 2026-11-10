@@ -1,0 +1,324 @@
+{
+  "project": {
+    "key": "SCA",
+    "name": "SegurCaixa Adeslas - Portal Servicios para Clientes (QAOps Ayesa Digital)",
+    "lead": "Unidad QAOps BFSI - Ayesa Digital",
+    "version": "2026.11.0-RC1",
+    "targetUrl": "https://www.segurcaixaadeslas.es/servicios-para-clientes",
+    "localSimUrl": "http://127.0.0.1:8080/servicios-para-clientes"
+  },
+  "epics": [
+    {
+      "key": "SCA-EP-01",
+      "summary": "Buscador Inteligente de Cuadro Médico y Centros de Urgencias",
+      "status": "In Progress",
+      "priority": "High",
+      "businessValue": "Permitir a los asegurados localizar facultativos, centros médicos y urgencias 24h según su póliza y provincia en menos de 2 segundos."
+    },
+    {
+      "key": "SCA-EP-02",
+      "summary": "Gestión Digital de Autorizaciones Médicas Online",
+      "status": "In Progress",
+      "priority": "Highest",
+      "businessValue": "Automatizar la solicitud y validación de volantes médicos reduciendo un 65% las llamadas al Contact Center."
+    },
+    {
+      "key": "SCA-EP-03",
+      "summary": "Tramitación de Reembolsos de Gastos Médicos y Farmacéuticos",
+      "status": "In Progress",
+      "priority": "High",
+      "businessValue": "Agilizar el abono del 80%-90% de facturas médicas externas para asegurados con pólizas Adeslas Extra y Premier."
+    },
+    {
+      "key": "SCA-EP-04",
+      "summary": "Área Cliente, Tarjeta Digital y Servicios de Salud Digital (Videoconsulta)",
+      "status": "Ready for QA",
+      "priority": "Medium",
+      "businessValue": "Centralizar el acceso al área privada, descarga de tarjeta digital y reserva de videoconsultas médicas."
+    },
+    {
+      "key": "SCA-EP-05",
+      "summary": "No Funcionales: Rendimiento, Resiliencia y Observabilidad QAOps (JMeter IA)",
+      "status": "In Progress",
+      "priority": "Highest",
+      "businessValue": "Garantizar un Apdex >= 0.92 y P95 < 450ms durante picos estacionales de campañas de salud."
+    }
+  ],
+  "userStories": [
+    {
+      "key": "SCA-US-101",
+      "epicKey": "SCA-EP-01",
+      "summary": "Como asegurado quiero filtrar el Cuadro Médico por provincia, especialidad y tipo de póliza",
+      "storyPoints": 5,
+      "status": "Testing",
+      "acceptanceCriteria": [
+        "El buscador debe permitir filtrar por Provincia (Madrid, Barcelona, Sevilla, Valencia, Bilbao, Todas).",
+        "El buscador debe filtrar por Especialidad (Cardiología, Dermatología, Pediatría, Traumatología, Urgencias 24h, Dental).",
+        "El buscador debe filtrar por Modalidad de Póliza (Adeslas Plena Plus, Plena Vital, Seniors, Muface).",
+        "Debe mostrar dirección, teléfono, si admite cita online y nivel de copago."
+      ]
+    },
+    {
+      "key": "SCA-US-102",
+      "epicKey": "SCA-EP-02",
+      "summary": "Como asegurado quiero solicitar una autorización médica indicando mi tarjeta Adeslas y código de prescripción",
+      "storyPoints": 8,
+      "status": "Testing",
+      "acceptanceCriteria": [
+        "El número de tarjeta Adeslas debe tener entre 12 y 16 dígitos numéricos.",
+        "Se debe seleccionar el tipo de acto médico (Resonancia Magnética, TAC, Rehabilitación, Cirugía Ambulatoria, Genética).",
+        "Las pruebas estándar se aprueban automáticamente generando código AUT-2026-XXXXX; las de alta complejidad pasan a revisión médica.",
+        "Si falta algún campo obligatorio se muestra alerta accesible con rol alert."
+      ]
+    },
+    {
+      "key": "SCA-US-103",
+      "epicKey": "SCA-EP-03",
+      "summary": "Como asegurado con póliza de reembolso quiero registrar una factura médica y conocer el importe estimado a percibir",
+      "storyPoints": 8,
+      "status": "Testing",
+      "acceptanceCriteria": [
+        "Validar NIF/NIE y formato de cuenta IBAN española (ES + 22 dígitos).",
+        "Calcular automáticamente el reembolso estimado: 90% para Adeslas Premier y 80% para Adeslas Extra.",
+        "Rechazar importes negativos o iguales a cero.",
+        "Generar identificador único de expediente RMB-2026-XXXXX."
+      ]
+    },
+    {
+      "key": "SCA-US-104",
+      "epicKey": "SCA-EP-04",
+      "summary": "Como cliente quiero autenticarme en el Área Cliente y consultar mi póliza activa y tarjeta digital",
+      "storyPoints": 5,
+      "status": "Ready for QA",
+      "acceptanceCriteria": [
+        "Permitir login con NIF/NIE registrado y contraseña válida.",
+        "Mostrar número de póliza, modalidad contratada, estado de recibos y botón de Tarjeta Digital.",
+        "Bloquear acceso y mostrar mensaje claro ante credenciales inválidas."
+      ]
+    },
+    {
+      "key": "SCA-US-105",
+      "epicKey": "SCA-EP-04",
+      "summary": "Como asegurado quiero agendar una cita de Orientación Médica / Videoconsulta desde Servicios para Clientes",
+      "storyPoints": 3,
+      "status": "Testing",
+      "acceptanceCriteria": [
+        "Permitir elegir modalidad (Videoconsulta, Telefónica 24h, Presencial).",
+        "Confirmar cita con código CIT-2026-XXXXX y médico asignado."
+      ]
+    },
+    {
+      "key": "SCA-US-106",
+      "epicKey": "SCA-EP-05",
+      "summary": "Como ingeniero QAOps quiero certificar la capacidad del portal bajo carga concurrente con JMeter asistido por IA",
+      "storyPoints": 8,
+      "status": "In Progress",
+      "acceptanceCriteria": [
+        "Tiempo de respuesta P95 < 450 ms en Cuadro Médico con 50 hilos concurrentes.",
+        "Tasa de error < 1% en transacciones de Autorizaciones y Reembolsos.",
+        "Informe automático generado por el motor JMeter AI con recomendaciones de optimización."
+      ]
+    }
+  ],
+  "testPlan": {
+    "key": "SCA-TP-2026-Q4",
+    "summary": "Master Test Plan QAOps - Portal Servicios para Clientes SegurCaixa Adeslas",
+    "environment": "PRE-PRODUCCIÓN / SIMULADOR LOCAL (Puerto 8080)",
+    "methodology": "ISTQB + Agile QAOps Continuous Testing (Selenium MCP + JMeter AI)",
+    "totalTests": 12
+  },
+  "testCases": [
+    {
+      "key": "SCA-TC-001",
+      "testLinkId": "TL-SCA-101",
+      "redmineIssueId": 4011,
+      "storyKey": "SCA-US-101",
+      "title": "Renderizado del catálogo de Servicios para Clientes y KPIs de cobertura",
+      "type": "Automated (Selenium + MCP)",
+      "priority": "High",
+      "component": "UI / Catálogo Servicios",
+      "status": "PASSED",
+      "lastExecutionTimeMs": 195,
+      "gherkin": "Given el usuario navega a '/servicios-para-clientes'\nWhen la página termina de cargar\nThen se visualizan las 6 tarjetas de servicios principales (Cuadro Médico, Autorizaciones, Reembolsos, Área Cliente, Videoconsulta, Urgencias 24h)\nAnd el encabezado corporativo de SegurCaixa Adeslas es visible",
+      "automationRef": "tests/test_servicios_clientes_e2e.py::test_tc001_catalogo_servicios_clientes"
+    },
+    {
+      "key": "SCA-TC-002",
+      "testLinkId": "TL-SCA-102",
+      "redmineIssueId": 4012,
+      "storyKey": "SCA-US-101",
+      "title": "Búsqueda en Cuadro Médico filtrando por Provincia (Madrid) y Especialidad (Cardiología)",
+      "type": "Automated (Selenium + MCP)",
+      "priority": "Highest",
+      "component": "Cuadro Médico",
+      "status": "PASSED",
+      "lastExecutionTimeMs": 248,
+      "gherkin": "Given el asegurado se encuentra en la pestaña 'Cuadro Médico'\nWhen selecciona la provincia 'Madrid' y la especialidad 'Cardiología'\nAnd pulsa en 'Buscar en Cuadro Médico'\nThen se muestran centros médicos en Madrid con la especialidad Cardiología y su estado de cita online",
+      "automationRef": "tests/test_servicios_clientes_e2e.py::test_tc002_busqueda_cuadro_medico_madrid_cardiologia"
+    },
+    {
+      "key": "SCA-TC-003",
+      "testLinkId": "TL-SCA-103",
+      "redmineIssueId": 4013,
+      "storyKey": "SCA-US-101",
+      "title": "Búsqueda en Cuadro Médico de Centros de Urgencias 24h y filtro por póliza Muface",
+      "type": "Automated (Selenium + MCP)",
+      "priority": "High",
+      "component": "Cuadro Médico",
+      "status": "PASSED",
+      "lastExecutionTimeMs": 179,
+      "gherkin": "Given el asegurado accede al buscador de Cuadro Médico\nWhen selecciona especialidad 'Urgencias 24h' y modalidad 'Muface / Isfas'\nThen el listado devuelve únicamente hospitales con urgencias 24h concertados para mutualistas",
+      "automationRef": "tests/test_servicios_clientes_e2e.py::test_tc003_busqueda_urgencias_muface"
+    },
+    {
+      "key": "SCA-TC-004",
+      "testLinkId": "TL-SCA-104",
+      "redmineIssueId": 4014,
+      "storyKey": "SCA-US-102",
+      "title": "Solicitud exitosa de Autorización Médica automática (Resonancia Magnética)",
+      "type": "Automated (Selenium + MCP)",
+      "priority": "Highest",
+      "component": "Autorizaciones Médicas",
+      "status": "PASSED",
+      "lastExecutionTimeMs": 232,
+      "gherkin": "Given el asegurado abre la sección 'Autorizaciones Médicas'\nWhen introduce la tarjeta Adeslas '8000123456789012', tipo 'Resonancia Magnética', prescripción 'RX-99281' y centro 'Hospital Ruber Internacional'\nAnd envía el formulario de autorización\nThen el sistema aprueba la solicitud y genera un código 'AUT-2026-XXXXX' con estado 'AUTORIZADA'",
+      "automationRef": "tests/test_servicios_clientes_e2e.py::test_tc004_solicitud_autorizacion_exitosa"
+    },
+    {
+      "key": "SCA-TC-005",
+      "testLinkId": "TL-SCA-105",
+      "redmineIssueId": 4015,
+      "storyKey": "SCA-US-102",
+      "title": "Validación negativa de Autorización con número de tarjeta Adeslas inválido",
+      "type": "Automated (Selenium + MCP)",
+      "priority": "High",
+      "component": "Autorizaciones Médicas",
+      "status": "PASSED",
+      "lastExecutionTimeMs": 732,
+      "gherkin": "Given el asegurado abre el formulario de 'Autorizaciones Médicas'\nWhen introduce una tarjeta inválida '12345' y pulsa solicitar\nThen el sistema rechaza la petición con HTTP 400 y muestra alerta de validación de formato de tarjeta",
+      "automationRef": "tests/test_servicios_clientes_e2e.py::test_tc005_autorizacion_tarjeta_invalida"
+    },
+    {
+      "key": "SCA-TC-006",
+      "testLinkId": "TL-SCA-106",
+      "redmineIssueId": 4016,
+      "storyKey": "SCA-US-102",
+      "title": "Autorización de Estudio Genético derivada a Revisión Médica Facultativa",
+      "type": "Automated (API / Pytest)",
+      "priority": "Medium",
+      "component": "Autorizaciones Médicas",
+      "status": "PASSED",
+      "lastExecutionTimeMs": 64,
+      "gherkin": "Given una solicitud de autorización para 'Estudio Genético Oncológico'\nWhen se envía al endpoint '/api/v1/autorizaciones'\nThen el estado retornado es 'PENDIENTE_REVISION_MEDICA' con SLA de 48h",
+      "automationRef": "tests/test_servicios_clientes_e2e.py::test_tc006_autorizacion_revision_medica"
+    },
+    {
+      "key": "SCA-TC-007",
+      "testLinkId": "TL-SCA-107",
+      "redmineIssueId": 4017,
+      "storyKey": "SCA-US-103",
+      "title": "Registro de Reembolso de Gastos Médicos (Póliza Adeslas Premier - 90% cobertura)",
+      "type": "Automated (Selenium + MCP)",
+      "priority": "Highest",
+      "component": "Reembolsos",
+      "status": "PASSED",
+      "lastExecutionTimeMs": 222,
+      "gherkin": "Given el asegurado selecciona la gestión 'Solicitud de Reembolso'\nWhen introduce NIF '12345678Z', póliza 'Adeslas Premier (90%)', importe '250.00' EUR e IBAN 'ES9121000418450200051332'\nAnd envía la solicitud de reembolso\nThen el sistema confirma el expediente 'RMB-2026-XXXXX' con un importe estimado a abonar de '225.00 EUR'",
+      "automationRef": "tests/test_servicios_clientes_e2e.py::test_tc007_reembolso_premier_calculo_90"
+    },
+    {
+      "key": "SCA-TC-008",
+      "testLinkId": "TL-SCA-108",
+      "redmineIssueId": 4018,
+      "storyKey": "SCA-US-103",
+      "title": "Validación de IBAN incorrecto en solicitud de Reembolso",
+      "type": "Automated (Selenium + MCP)",
+      "priority": "Medium",
+      "component": "Reembolsos",
+      "status": "PASSED",
+      "lastExecutionTimeMs": 211,
+      "gherkin": "Given el asegurado completa el formulario de reembolso con un IBAN sin formato ES24 dígitos\nWhen intenta enviar la solicitud\nThen se muestra un mensaje de error indicando que el IBAN debe comenzar por ES seguido de 22 dígitos",
+      "automationRef": "tests/test_servicios_clientes_e2e.py::test_tc008_reembolso_iban_invalido"
+    },
+    {
+      "key": "SCA-TC-009",
+      "testLinkId": "TL-SCA-109",
+      "redmineIssueId": 4019,
+      "storyKey": "SCA-US-104",
+      "title": "Acceso al Área Cliente y visualización de Tarjeta Digital Adeslas",
+      "type": "Automated (Selenium + MCP)",
+      "priority": "High",
+      "component": "Área Cliente",
+      "status": "PASSED",
+      "lastExecutionTimeMs": 161,
+      "gherkin": "Given el usuario abre el panel de 'Área Cliente'\nWhen inicia sesión con el NIF '12345678Z' y clave 'Adeslas2026!'\nThen visualiza los datos del titular 'Carlos Martínez Gómez', póliza 'POL-SCA-908122' y su Tarjeta Digital activa",
+      "automationRef": "tests/test_servicios_clientes_e2e.py::test_tc009_login_area_cliente_tarjeta_digital"
+    },
+    {
+      "key": "SCA-TC-010",
+      "testLinkId": "TL-SCA-110",
+      "redmineIssueId": 4020,
+      "storyKey": "SCA-US-105",
+      "title": "Reserva de Videoconsulta de Orientación Médica 24h",
+      "type": "Automated (Selenium + MCP)",
+      "priority": "Medium",
+      "component": "Salud Digital",
+      "status": "PASSED",
+      "lastExecutionTimeMs": 178,
+      "gherkin": "Given el cliente accede a 'Videoconsulta y Orientación Médica'\nWhen selecciona especialidad 'Medicina General', modalidad 'Videoconsulta Inmediata' y motivo de consulta\nThen recibe confirmación de cita con código 'CIT-2026-XXXXX' y enlace a sala de espera virtual",
+      "automationRef": "tests/test_servicios_clientes_e2e.py::test_tc010_reserva_videoconsulta_medica"
+    },
+    {
+      "key": "SCA-TC-011",
+      "testLinkId": "TL-SCA-111",
+      "redmineIssueId": 4021,
+      "storyKey": "SCA-US-106",
+      "title": "Prueba de Carga JMeter AI - Buscador Cuadro Médico (SLA P95 < 450ms)",
+      "type": "Performance (JMeter AI)",
+      "priority": "Highest",
+      "component": "API Cuadro Médico",
+      "status": "PASSED",
+      "lastExecutionTimeMs": 70,
+      "gherkin": "Given un escenario de carga con 50 usuarios concurrentes buscando facultativos\nWhen se ejecuta el plan JMeter durante la ventana de prueba\nThen el percentil 95 es inferior a 450ms y el Error Rate es 0.0%",
+      "automationRef": "jmeter-ai/plans/segurcaixa_servicios_clientes.jmx::TG01_Busqueda_Cuadro_Medico"
+    },
+    {
+      "key": "SCA-TC-012",
+      "testLinkId": "TL-SCA-112",
+      "redmineIssueId": 4022,
+      "storyKey": "SCA-US-106",
+      "title": "Prueba de Estrés JMeter AI - Pico de Autorizaciones y Detección de Latencia",
+      "type": "Performance (JMeter AI)",
+      "priority": "High",
+      "component": "API Autorizaciones",
+      "status": "PASSED",
+      "lastExecutionTimeMs": 79,
+      "gherkin": "Given una ráfaga concurrente de solicitudes de autorización médica\nWhen el motor JMeter AI analiza el fichero JTL resultante\nThen identifica el índice Apdex, detecta desviaciones de latencia en validaciones complejas y emite recomendaciones de caché Redis",
+      "automationRef": "jmeter-ai/plans/segurcaixa_servicios_clientes.jmx::TG02_Tramite_Autorizaciones"
+    }
+  ],
+  "defects": [
+    {
+      "key": "SCA-BUG-201",
+      "redmineIssueId": 4091,
+      "linkedTestCase": "SCA-TC-006",
+      "summary": "[API Autorizaciones] Latencia superior a 350ms cuando se valida prescripción de Estudio Genético sin caché de baremos",
+      "severity": "Minor",
+      "priority": "Medium",
+      "status": "Open",
+      "detectedBy": "JMeter AI Anomaly Detector",
+      "environment": "Local QAOps Simulation"
+    },
+    {
+      "key": "SCA-BUG-202",
+      "redmineIssueId": 4092,
+      "linkedTestCase": "SCA-TC-008",
+      "summary": "[UI Reembolsos] El campo IBAN permite pegar espacios intermedios antes de normalizar en cliente",
+      "severity": "Trivial",
+      "priority": "Low",
+      "status": "Resolved",
+      "detectedBy": "Selenium MCP Self-Healing Inspector",
+      "environment": "Chrome 130 / Windows"
+    }
+  ]
+}

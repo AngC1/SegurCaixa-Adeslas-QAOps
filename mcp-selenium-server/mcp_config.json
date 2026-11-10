@@ -1,0 +1,14 @@
+{
+  "mcpServers": {
+    "ayesa-selenium-qaops": {
+      "command": "python",
+      "args": [
+        "mcp-selenium-server/server.py"
+      ],
+      "env": {
+        "ADESLAS_BASE_URL": "http://127.0.0.1:8080",
+        "QAOPS_BROWSER": "auto"
+      }
+    }
+  }
+}

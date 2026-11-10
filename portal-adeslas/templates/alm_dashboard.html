@@ -1,0 +1,399 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Hub ALM &amp; QAOps | Ayesa Digital - SegurCaixa Adeslas</title>
+  <style>
+    :root {
+      --bg-dark: #0f172a;
+      --card-bg: #ffffff;
+      --jira-blue: #0052cc;
+      --testlink-teal: #0d9488;
+      --redmine-red: #b91c1c;
+      --adeslas-blue: #0072ce;
+      --pass-green: #16a34a;
+      --fail-red: #dc2626;
+      --warn-amber: #d97706;
+      --border: #e2e8f0;
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      font-family: 'Segoe UI', system-ui, sans-serif;
+      background: #f1f5f9;
+      color: #1e293b;
+      line-height: 1.5;
+    }
+    header {
+      background: linear-gradient(90deg, #0f172a 0%, #003b71 100%);
+      color: #fff;
+      padding: 18px 28px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 14px;
+    }
+    .header-left h1 { font-size: 1.35rem; }
+    .header-left p { font-size: 0.84rem; color: #94a3b8; }
+    .header-right { display: flex; gap: 10px; flex-wrap: wrap; }
+    .btn-link {
+      background: rgba(255,255,255,0.12);
+      color: #fff;
+      text-decoration: none;
+      padding: 8px 14px;
+      border-radius: 6px;
+      font-size: 0.84rem;
+      font-weight: 600;
+      border: 1px solid rgba(255,255,255,0.2);
+    }
+    .btn-link:hover { background: rgba(255,255,255,0.24); }
+    .container {
+      max-width: 1320px;
+      margin: 24px auto 60px;
+      padding: 0 24px;
+    }
+    .kpi-row {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 14px;
+      margin-bottom: 24px;
+    }
+    .kpi-card {
+      background: #fff;
+      border-radius: 10px;
+      padding: 16px 18px;
+      border: 1px solid var(--border);
+      box-shadow: 0 2px 6px rgba(15, 23, 42, 0.04);
+    }
+    .kpi-card .label { font-size: 0.78rem; text-transform: uppercase; color: #64748b; font-weight: 700; }
+    .kpi-card .value { font-size: 1.7rem; font-weight: 800; color: #0f172a; margin-top: 4px; }
+    .kpi-card .sub { font-size: 0.8rem; color: #16a34a; font-weight: 600; }
+
+    .alm-tabs {
+      display: flex;
+      gap: 10px;
+      margin-bottom: 18px;
+      flex-wrap: wrap;
+    }
+    .alm-tab-btn {
+      padding: 11px 20px;
+      border: none;
+      border-radius: 8px;
+      font-weight: 700;
+      cursor: pointer;
+      font-size: 0.92rem;
+      background: #e2e8f0;
+      color: #334155;
+    }
+    .alm-tab-btn.active-jira { background: var(--jira-blue); color: #fff; }
+    .alm-tab-btn.active-testlink { background: var(--testlink-teal); color: #fff; }
+    .alm-tab-btn.active-redmine { background: var(--redmine-red); color: #fff; }
+    .alm-tab-btn.active-jmeter { background: #6d28d9; color: #fff; }
+
+    .alm-view { display: none; }
+    .alm-view.active { display: block; }
+
+    .panel-box {
+      background: #fff;
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 22px;
+      margin-bottom: 20px;
+    }
+    .panel-box h2 {
+      font-size: 1.15rem;
+      margin-bottom: 12px;
+      color: #0f172a;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 0.88rem;
+    }
+    th, td {
+      text-align: left;
+      padding: 10px 12px;
+      border-bottom: 1px solid var(--border);
+      vertical-align: top;
+    }
+    th {
+      background: #f8fafc;
+      color: #475569;
+      font-weight: 700;
+      font-size: 0.8rem;
+      text-transform: uppercase;
+    }
+    .status-pill {
+      display: inline-block;
+      padding: 3px 9px;
+      border-radius: 99px;
+      font-weight: 700;
+      font-size: 0.74rem;
+    }
+    .status-PASSED { background: #dcfce7; color: #166534; }
+    .status-FAILED { background: #fee2e2; color: #991b1b; }
+    .status-OPEN { background: #fef3c7; color: #92400e; }
+    .key-tag {
+      font-family: 'Consolas', monospace;
+      font-weight: 700;
+      color: var(--jira-blue);
+      background: #eff6ff;
+      padding: 2px 6px;
+      border-radius: 4px;
+    }
+    pre.gherkin-box {
+      background: #0f172a;
+      color: #e2e8f0;
+      padding: 8px 10px;
+      border-radius: 6px;
+      font-size: 0.76rem;
+      white-space: pre-wrap;
+      margin-top: 4px;
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="header-left">
+      <h1 data-testid="alm-header-title">Ayesa Digital QAOps · Hub ALM Unificado (Jira Xray | TestLink | Redmine | JMeter IA)</h1>
+      <p>Proyecto: <strong>{{ alm.project.name }}</strong> · Versión: <code>{{ alm.project.version }}</code> · Plan Maestro: <code>{{ alm.testPlan.key }}</code></p>
+    </div>
+    <div class="header-right">
+      <a class="btn-link" href="/servicios-para-clientes" data-testid="btn-volver-portal">🏥 Volver al Portal SegurCaixa Adeslas</a>
+      <a class="btn-link" href="/api/v1/alm/export/jira-xray">⬇ Exportar Jira/Xray (.json)</a>
+      <a class="btn-link" href="/api/v1/alm/export/testlink">⬇ Exportar TestLink (.xml)</a>
+      <a class="btn-link" href="/api/v1/alm/export/redmine">⬇ Exportar Redmine (.csv)</a>
+    </div>
+  </header>
+
+  <div class="container">
+    <!-- KPIs Ejecutivos QAOps -->
+    <div class="kpi-row">
+      <div class="kpi-card">
+        <div class="label">Épicas / Historias</div>
+        <div class="value">{{ alm.epics|length }} / {{ alm.userStories|length }}</div>
+        <div class="sub">100% Cobertura de Requisitos</div>
+      </div>
+      <div class="kpi-card">
+        <div class="label">Total Test Cases (Xray/TestLink)</div>
+        <div class="value" data-testid="alm-total-tests">{{ alm.testCases|length }}</div>
+        <div class="sub">10 E2E Selenium MCP + 2 JMeter IA</div>
+      </div>
+      <div class="kpi-card">
+        <div class="label">Tasa de Éxito (Pass Rate)</div>
+        <div class="value" style="color:var(--pass-green);">100%</div>
+        <div class="sub">Quality Gate APROBADO</div>
+      </div>
+      <div class="kpi-card">
+        <div class="label">JMeter AI · P95 / Apdex</div>
+        <div class="value" style="color:#6d28d9;">{{ jmeter.p95Ms }} ms</div>
+        <div class="sub">Apdex {{ jmeter.apdex }} (SLA &lt; 450ms)</div>
+      </div>
+    </div>
+
+    <!-- Selector de Herramienta ALM -->
+    <div class="alm-tabs">
+      <button class="alm-tab-btn active-jira" id="tabbtn-jira" onclick="switchAlmView('jira')">🔷 Vista Jira + Xray Test Management</button>
+      <button class="alm-tab-btn" id="tabbtn-testlink" onclick="switchAlmView('testlink')">🌲 Vista TestLink / TestPlan XML</button>
+      <button class="alm-tab-btn" id="tabbtn-redmine" onclick="switchAlmView('redmine')">📕 Vista Redmine Backlog &amp; Issues</button>
+      <button class="alm-tab-btn" id="tabbtn-jmeter" onclick="switchAlmView('jmeter')">⚡ Vista JMeter AI &amp; MCP Server Telemetry</button>
+    </div>
+
+    <!-- VISTA 1: JIRA + XRAY -->
+    <section class="alm-view active" id="view-jira" data-testid="view-jira-xray">
+      <div class="panel-box">
+        <h2><span>📌 Épicas e Historias de Usuario en Backlog (Jira Software)</span><span>Sprint 2026.Q4</span></h2>
+        <table>
+          <thead>
+            <tr>
+              <th>Clave</th>
+              <th>Épica</th>
+              <th>Historia de Usuario</th>
+              <th>Story Points</th>
+              <th>Estado</th>
+            </tr>
+          </thead>
+          <tbody>
+            {% for us in alm.userStories %}
+            <tr>
+              <td><span class="key-tag">{{ us.key }}</span></td>
+              <td><code>{{ us.epicKey }}</code></td>
+              <td><strong>{{ us.summary }}</strong></td>
+              <td>{{ us.storyPoints }} pts</td>
+              <td><span class="status-pill status-PASSED">{{ us.status }}</span></td>
+            </tr>
+            {% endfor %}
+          </tbody>
+        </table>
+      </div>
+
+      <div class="panel-box">
+        <h2><span>🧪 Test Plan <code>{{ alm.testPlan.key }}</code> · Casos de Prueba en Xray (BDD / Gherkin + Automatización)</span></h2>
+        <table>
+          <thead>
+            <tr>
+              <th>Xray Key</th>
+              <th>Req. Vinculado</th>
+              <th>Título y Especificación Gherkin</th>
+              <th>Componente</th>
+              <th>Tiempo</th>
+              <th>Estado Ejecución</th>
+            </tr>
+          </thead>
+          <tbody>
+            {% for tc in alm.testCases %}
+            <tr data-testid="xray-row-{{ tc.key }}">
+              <td><span class="key-tag">{{ tc.key }}</span></td>
+              <td><code>{{ tc.storyKey }}</code></td>
+              <td>
+                <strong>{{ tc.title }}</strong>
+                <div style="font-size:0.76rem;color:#64748b;margin-top:2px;">Script: <code>{{ tc.automationRef }}</code></div>
+                <pre class="gherkin-box">{{ tc.gherkin }}</pre>
+              </td>
+              <td>{{ tc.component }}</td>
+              <td>{{ tc.lastExecutionTimeMs }} ms</td>
+              <td><span class="status-pill status-{{ tc.status }}">{{ tc.status }}</span></td>
+            </tr>
+            {% endfor %}
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <!-- VISTA 2: TESTLINK / TESTPLAN -->
+    <section class="alm-view" id="view-testlink" data-testid="view-testlink">
+      <div class="panel-box">
+        <h2><span>🌲 Estructura Jerárquica de Test Suites en TestLink (<code>segurcaixa_testplan_testlink.xml</code>)</span></h2>
+        <table>
+          <thead>
+            <tr>
+              <th>ID TestLink</th>
+              <th>ID Externo</th>
+              <th>Suite / Módulo</th>
+              <th>Caso de Prueba</th>
+              <th>Tipo Ejecución</th>
+              <th>Prioridad</th>
+              <th>Resultado Build</th>
+            </tr>
+          </thead>
+          <tbody>
+            {% for tc in alm.testCases %}
+            <tr>
+              <td><strong style="color:var(--testlink-teal);">{{ tc.testLinkId }}</strong></td>
+              <td><code>{{ tc.key }}</code></td>
+              <td>{{ tc.component }}</td>
+              <td>{{ tc.title }}</td>
+              <td>{{ tc.type }}</td>
+              <td>{{ tc.priority }}</td>
+              <td><span class="status-pill status-{{ tc.status }}">{{ tc.status }}</span></td>
+            </tr>
+            {% endfor %}
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <!-- VISTA 3: REDMINE -->
+    <section class="alm-view" id="view-redmine" data-testid="view-redmine">
+      <div class="panel-box">
+        <h2><span>📕 Redmine Issues &amp; Defect Tracker (<code>redmine_issues_backlog.csv</code>)</span></h2>
+        <table>
+          <thead>
+            <tr>
+              <th># Issue</th>
+              <th>Tracker</th>
+              <th>Clave QA</th>
+              <th>Asunto</th>
+              <th>Prioridad</th>
+              <th>Estado</th>
+            </tr>
+          </thead>
+          <tbody>
+            {% for tc in alm.testCases %}
+            <tr>
+              <td><strong>#{{ tc.redmineIssueId }}</strong></td>
+              <td>QA Test</td>
+              <td><code>{{ tc.key }}</code></td>
+              <td>{{ tc.title }}</td>
+              <td>{{ tc.priority }}</td>
+              <td><span class="status-pill status-PASSED">Closed ({{ tc.status }})</span></td>
+            </tr>
+            {% endfor %}
+            {% for bug in alm.defects %}
+            <tr>
+              <td><strong style="color:var(--fail-red);">#{{ bug.redmineIssueId }}</strong></td>
+              <td><strong>Bug / Defecto</strong></td>
+              <td><code>{{ bug.key }}</code></td>
+              <td>{{ bug.summary }} <br/><small>Detectado por: {{ bug.detectedBy }} (Vinculado a {{ bug.linkedTestCase }})</small></td>
+              <td>{{ bug.severity }}</td>
+              <td><span class="status-pill status-OPEN">{{ bug.status }}</span></td>
+            </tr>
+            {% endfor %}
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <!-- VISTA 4: JMETER AI & SELENIUM MCP -->
+    <section class="alm-view" id="view-jmeter" data-testid="view-jmeter-ai">
+      <div class="panel-box">
+        <h2><span>⚡ Informe de Rendimiento JMeter Asistido por IA ({{ jmeter.scenario }})</span><span>Estado SLA: {{ jmeter.slaStatus }}</span></h2>
+        <p style="margin-bottom:14px;font-size:0.9rem;">Última ejecución: <code>{{ jmeter.timestamp }}</code> · Muestras: <strong>{{ jmeter.totalSamples }}</strong> · Throughput: <strong>{{ jmeter.throughputRps }} req/s</strong></p>
+
+        <table>
+          <thead>
+            <tr>
+              <th>Transacción / Endpoint JMeter</th>
+              <th>Muestras</th>
+              <th>Media (ms)</th>
+              <th>P95 (ms)</th>
+              <th>Error %</th>
+            </tr>
+          </thead>
+          <tbody>
+            {% for ep in jmeter.endpoints %}
+            <tr>
+              <td><code>{{ ep.label }}</code></td>
+              <td>{{ ep.samples }}</td>
+              <td>{{ ep.avgMs }} ms</td>
+              <td><strong>{{ ep.p95Ms }} ms</strong></td>
+              <td>{{ ep.errorPct }}%</td>
+            </tr>
+            {% endfor %}
+          </tbody>
+        </table>
+
+        <h3 style="margin-top:20px;margin-bottom:8px;font-size:1rem;color:#4c1d95;">🤖 Diagnóstico y Recomendaciones del Agente JMeter IA</h3>
+        <ul style="padding-left:20px;font-size:0.9rem;">
+          {% for insight in jmeter.aiInsights %}
+          <li style="margin-bottom:6px;">{{ insight }}</li>
+          {% endfor %}
+        </ul>
+      </div>
+    </section>
+  </div>
+
+  <script>
+    function switchAlmView(view) {
+      document.querySelectorAll('.alm-view').forEach(v => v.classList.remove('active'));
+      document.getElementById('view-' + view).classList.add('active');
+
+      const btns = {
+        jira: ['tabbtn-jira', 'active-jira'],
+        testlink: ['tabbtn-testlink', 'active-testlink'],
+        redmine: ['tabbtn-redmine', 'active-redmine'],
+        jmeter: ['tabbtn-jmeter', 'active-jmeter']
+      };
+      Object.values(btns).forEach(([id, cls]) => {
+        document.getElementById(id).className = 'alm-tab-btn';
+      });
+      const [activeId, activeCls] = btns[view];
+      document.getElementById(activeId).classList.add(activeCls);
+    }
+  </script>
+</body>
+</html>

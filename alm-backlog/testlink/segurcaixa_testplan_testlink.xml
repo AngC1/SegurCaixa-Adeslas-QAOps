@@ -1,0 +1,127 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Exportación Oficial TestLink / TestPlan - SegurCaixa Adeslas QAOps (Ayesa Digital) -->
+<testsuites name="SCA-TP-2026-Q4: Portal Servicios para Clientes SegurCaixa Adeslas">
+  <details><![CDATA[<p>Plan de Pruebas Maestro para la certificación funcional (Selenium + MCP) y no funcional (JMeter asistido por IA) del portal <strong>Servicios para Clientes de SegurCaixa Adeslas</strong>.</p>]]></details>
+
+  <testsuite name="TS01 - Buscador de Cuadro Médico y Centros de Urgencias">
+    <details><![CDATA[<p>Pruebas sobre el motor de búsqueda de facultativos, centros médicos y hospitales concertados.</p>]]></details>
+    <testcase internalid="101" name="TL-SCA-101: Renderizado del catálogo de Servicios para Clientes y KPIs">
+      <node_order><![CDATA[1]]></node_order>
+      <externalid><![CDATA[SCA-TC-001]]></externalid>
+      <summary><![CDATA[Verificar que el portal /servicios-para-clientes carga los 6 módulos clave de atención al asegurado.]]></summary>
+      <preconditions><![CDATA[Servidor Portal SegurCaixa Adeslas activo en puerto 8080.]]></preconditions>
+      <execution_type><![CDATA[2]]></execution_type>
+      <importance><![CDATA[3]]></importance>
+      <steps>
+        <step>
+          <step_number><![CDATA[1]]></step_number>
+          <actions><![CDATA[Navegar a /servicios-para-clientes]]></actions>
+          <expectedresults><![CDATA[Respuesta HTTP 200 y visualización de tarjetas: Cuadro Médico, Autorizaciones, Reembolsos, Área Cliente, Videoconsulta y Urgencias 24h.]]></expectedresults>
+          <execution_type><![CDATA[2]]></execution_type>
+        </step>
+      </steps>
+    </testcase>
+
+    <testcase internalid="102" name="TL-SCA-102: Búsqueda en Cuadro Médico por Provincia (Madrid) y Especialidad (Cardiología)">
+      <node_order><![CDATA[2]]></node_order>
+      <externalid><![CDATA[SCA-TC-002]]></externalid>
+      <summary><![CDATA[Comprobar el filtrado combinado por provincia, especialidad médica y modalidad de póliza.]]></summary>
+      <preconditions><![CDATA[Base de datos de cuadro médico cargada.]]></preconditions>
+      <execution_type><![CDATA[2]]></execution_type>
+      <importance><![CDATA[3]]></importance>
+      <steps>
+        <step>
+          <step_number><![CDATA[1]]></step_number>
+          <actions><![CDATA[Seleccionar Provincia = Madrid, Especialidad = Cardiología y pulsar 'Buscar en Cuadro Médico'.]]></actions>
+          <expectedresults><![CDATA[Se listan los centros concertados en Madrid para Cardiología con teléfono, dirección y disponibilidad de cita online.]]></expectedresults>
+          <execution_type><![CDATA[2]]></execution_type>
+        </step>
+      </steps>
+    </testcase>
+
+    <testcase internalid="103" name="TL-SCA-103: Búsqueda de Centros de Urgencias 24h para mutualistas Muface">
+      <node_order><![CDATA[3]]></node_order>
+      <externalid><![CDATA[SCA-TC-003]]></externalid>
+      <summary><![CDATA[Validar filtro específico para pólizas de mutualidades (Muface/Isfas) en urgencias hospitalarias 24h.]]></summary>
+      <preconditions><![CDATA[Buscador de Cuadro Médico visible.]]></preconditions>
+      <execution_type><![CDATA[2]]></execution_type>
+      <importance><![CDATA[2]]></importance>
+    </testcase>
+  </testsuite>
+
+  <testsuite name="TS02 - Gestión Digital de Autorizaciones Médicas">
+    <details><![CDATA[<p>Validación de reglas de negocio en la solicitud de autorizaciones para pruebas diagnósticas y actos médicos.</p>]]></details>
+    <testcase internalid="104" name="TL-SCA-104: Solicitud exitosa de Autorización Médica automática (Resonancia Magnética)">
+      <node_order><![CDATA[1]]></node_order>
+      <externalid><![CDATA[SCA-TC-004]]></externalid>
+      <summary><![CDATA[Verificar emisión inmediata de código AUT-2026-XXXXX para pruebas diagnósticas estándar con tarjeta Adeslas válida.]]></summary>
+      <execution_type><![CDATA[2]]></execution_type>
+      <importance><![CDATA[3]]></importance>
+    </testcase>
+    <testcase internalid="105" name="TL-SCA-105: Validación negativa de Autorización con número de tarjeta inválido">
+      <node_order><![CDATA[2]]></node_order>
+      <externalid><![CDATA[SCA-TC-005]]></externalid>
+      <summary><![CDATA[Comprobar bloqueo y mensaje de error cuando el nº de tarjeta no cumple el formato de 12-16 dígitos.]]></summary>
+      <execution_type><![CDATA[2]]></execution_type>
+      <importance><![CDATA[2]]></importance>
+    </testcase>
+    <testcase internalid="106" name="TL-SCA-106: Autorización de Estudio Genético derivada a Revisión Médica">
+      <node_order><![CDATA[3]]></node_order>
+      <externalid><![CDATA[SCA-TC-006]]></externalid>
+      <summary><![CDATA[Verificar que actos de alta complejidad quedan en estado PENDIENTE_REVISION_MEDICA.]]></summary>
+      <execution_type><![CDATA[2]]></execution_type>
+      <importance><![CDATA[2]]></importance>
+    </testcase>
+  </testsuite>
+
+  <testsuite name="TS03 - Solicitud y Cálculo de Reembolsos de Gastos Médicos">
+    <testcase internalid="107" name="TL-SCA-107: Registro de Reembolso Póliza Adeslas Premier (90% cobertura)">
+      <node_order><![CDATA[1]]></node_order>
+      <externalid><![CDATA[SCA-TC-007]]></externalid>
+      <summary><![CDATA[Comprobar cálculo automático del 90% de reembolso y generación de expediente RMB-2026-XXXXX.]]></summary>
+      <execution_type><![CDATA[2]]></execution_type>
+      <importance><![CDATA[3]]></importance>
+    </testcase>
+    <testcase internalid="108" name="TL-SCA-108: Validación de IBAN incorrecto en solicitud de Reembolso">
+      <node_order><![CDATA[2]]></node_order>
+      <externalid><![CDATA[SCA-TC-008]]></externalid>
+      <summary><![CDATA[Verificar rechazo de cuentas bancarias con formato distinto a ES + 22 dígitos.]]></summary>
+      <execution_type><![CDATA[2]]></execution_type>
+      <importance><![CDATA[2]]></importance>
+    </testcase>
+  </testsuite>
+
+  <testsuite name="TS04 - Área Cliente, Tarjeta Digital y Salud Digital">
+    <testcase internalid="109" name="TL-SCA-109: Acceso al Área Cliente y visualización de Tarjeta Digital Adeslas">
+      <node_order><![CDATA[1]]></node_order>
+      <externalid><![CDATA[SCA-TC-009]]></externalid>
+      <summary><![CDATA[Verificar login de cliente con NIF 12345678Z y despliegue de su póliza y tarjeta sanitaria digital.]]></summary>
+      <execution_type><![CDATA[2]]></execution_type>
+      <importance><![CDATA[3]]></importance>
+    </testcase>
+    <testcase internalid="110" name="TL-SCA-110: Reserva de Videoconsulta de Orientación Médica 24h">
+      <node_order><![CDATA[2]]></node_order>
+      <externalid><![CDATA[SCA-TC-010]]></externalid>
+      <summary><![CDATA[Validar alta de cita telemática con asignación de facultativo y código CIT-2026-XXXXX.]]></summary>
+      <execution_type><![CDATA[2]]></execution_type>
+      <importance><![CDATA[2]]></importance>
+    </testcase>
+  </testsuite>
+
+  <testsuite name="TS05 - Pruebas de Rendimiento y Estrés (JMeter AI)">
+    <testcase internalid="111" name="TL-SCA-111: Prueba de Carga JMeter AI - Buscador Cuadro Médico (SLA P95 &lt; 450ms)">
+      <node_order><![CDATA[1]]></node_order>
+      <externalid><![CDATA[SCA-TC-011]]></externalid>
+      <summary><![CDATA[Certificar tiempos de respuesta bajo concurrencia en el buscador de cuadro médico.]]></summary>
+      <execution_type><![CDATA[2]]></execution_type>
+      <importance><![CDATA[3]]></importance>
+    </testcase>
+    <testcase internalid="112" name="TL-SCA-112: Prueba de Estrés JMeter AI - Pico de Autorizaciones y Detección de Latencia">
+      <node_order><![CDATA[2]]></node_order>
+      <externalid><![CDATA[SCA-TC-012]]></externalid>
+      <summary><![CDATA[Analizar con IA el comportamiento transaccional del endpoint de autorizaciones bajo ráfagas de tráfico.]]></summary>
+      <execution_type><![CDATA[2]]></execution_type>
+      <importance><![CDATA[3]]></importance>
+    </testcase>
+  </testsuite>
+</testsuites>

@@ -1,0 +1,856 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Servicios para Clientes | SegurCaixa Adeslas (Simulador QAOps Ayesa Digital)</title>
+  <style>
+    :root {
+      --adeslas-blue: #0072ce;
+      --adeslas-dark: #003b71;
+      --adeslas-light: #e8f3fc;
+      --adeslas-green: #00965e;
+      --ayesa-accent: #ec008c;
+      --text-main: #1e293b;
+      --text-muted: #526071;
+      --border: #d8e2ee;
+      --bg: #f5f8fc;
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+      background: var(--bg);
+      color: var(--text-main);
+      line-height: 1.5;
+    }
+    /* Barra Superior QAOps Ayesa Digital */
+    .qaops-banner {
+      background: linear-gradient(90deg, #0b192c 0%, #003b71 100%);
+      color: #fff;
+      font-size: 0.82rem;
+      padding: 8px 24px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      border-bottom: 2px solid var(--adeslas-blue);
+    }
+    .qaops-banner a {
+      color: #7dd3fc;
+      text-decoration: none;
+      font-weight: 600;
+      margin-left: 14px;
+      padding: 4px 10px;
+      border-radius: 4px;
+      background: rgba(255, 255, 255, 0.1);
+    }
+    .qaops-banner a:hover { background: rgba(255, 255, 255, 0.22); }
+
+    /* Cabecera Corporativa SegurCaixa Adeslas */
+    header.site-header {
+      background: #ffffff;
+      box-shadow: 0 2px 10px rgba(0, 59, 113, 0.08);
+      position: sticky;
+      top: 0;
+      z-index: 50;
+    }
+    .header-inner {
+      max-width: 1240px;
+      margin: 0 auto;
+      padding: 16px 24px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 12px;
+    }
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+    .brand-logo {
+      width: 42px;
+      height: 42px;
+      border-radius: 8px;
+      background: var(--adeslas-blue);
+      color: #fff;
+      font-weight: 800;
+      font-size: 1.3rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .brand-title {
+      font-size: 1.25rem;
+      font-weight: 800;
+      color: var(--adeslas-dark);
+      letter-spacing: -0.3px;
+    }
+    .brand-subtitle {
+      font-size: 0.78rem;
+      color: var(--adeslas-blue);
+      font-weight: 600;
+    }
+    .header-actions {
+      display: flex;
+      gap: 10px;
+      align-items: center;
+    }
+    .phone-pill {
+      background: var(--adeslas-light);
+      color: var(--adeslas-dark);
+      padding: 8px 14px;
+      border-radius: 999px;
+      font-size: 0.85rem;
+      font-weight: 700;
+    }
+    .btn-primary {
+      background: var(--adeslas-blue);
+      color: #fff;
+      border: none;
+      padding: 10px 18px;
+      border-radius: 6px;
+      font-weight: 700;
+      cursor: pointer;
+      transition: background 0.15s;
+      font-size: 0.92rem;
+    }
+    .btn-primary:hover { background: var(--adeslas-dark); }
+    .btn-outline {
+      background: #fff;
+      color: var(--adeslas-blue);
+      border: 1.5px solid var(--adeslas-blue);
+      padding: 9px 16px;
+      border-radius: 6px;
+      font-weight: 700;
+      cursor: pointer;
+      font-size: 0.9rem;
+    }
+    .btn-outline:hover { background: var(--adeslas-light); }
+
+    /* Hero Banner /servicios-para-clientes */
+    .hero {
+      background: linear-gradient(125deg, var(--adeslas-dark) 0%, var(--adeslas-blue) 100%);
+      color: #fff;
+      padding: 40px 24px;
+    }
+    .hero-inner {
+      max-width: 1240px;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: 2fr 1fr;
+      gap: 28px;
+      align-items: center;
+    }
+    .breadcrumb {
+      font-size: 0.82rem;
+      opacity: 0.85;
+      margin-bottom: 8px;
+    }
+    .hero h1 {
+      font-size: 2.1rem;
+      margin-bottom: 12px;
+      line-height: 1.2;
+    }
+    .hero p {
+      font-size: 1.02rem;
+      opacity: 0.94;
+      max-width: 680px;
+    }
+    .hero-kpis {
+      background: rgba(255, 255, 255, 0.12);
+      border: 1px solid rgba(255, 255, 255, 0.25);
+      border-radius: 12px;
+      padding: 18px;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 12px;
+    }
+    .kpi-box {
+      background: rgba(0, 29, 61, 0.35);
+      padding: 10px 12px;
+      border-radius: 8px;
+    }
+    .kpi-box strong {
+      display: block;
+      font-size: 1.35rem;
+      color: #7dd3fc;
+    }
+    .kpi-box span { font-size: 0.78rem; }
+
+    /* Contenedor Principal */
+    .main-container {
+      max-width: 1240px;
+      margin: 26px auto 60px;
+      padding: 0 24px;
+    }
+
+    /* Tarjetas del Catálogo de Servicios para Clientes */
+    .section-heading {
+      font-size: 1.35rem;
+      color: var(--adeslas-dark);
+      margin-bottom: 16px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    .services-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(340px, 1fr));
+      gap: 16px;
+      margin-bottom: 32px;
+    }
+    .service-card {
+      background: #fff;
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 20px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      transition: transform 0.15s, box-shadow 0.15s;
+      cursor: pointer;
+    }
+    .service-card:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 8px 20px rgba(0, 59, 113, 0.1);
+      border-color: var(--adeslas-blue);
+    }
+    .service-card-header {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      margin-bottom: 10px;
+    }
+    .service-icon {
+      font-size: 1.7rem;
+      background: var(--adeslas-light);
+      width: 46px;
+      height: 46px;
+      border-radius: 10px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .service-card h3 {
+      font-size: 1.08rem;
+      color: var(--adeslas-dark);
+    }
+    .service-card p {
+      font-size: 0.9rem;
+      color: var(--text-muted);
+      margin-bottom: 14px;
+    }
+    .service-card-footer {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-size: 0.84rem;
+      color: var(--adeslas-blue);
+      font-weight: 700;
+    }
+
+    /* Pestañas Interactivas de Gestión Online */
+    .tabs-bar {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      border-bottom: 2px solid var(--border);
+      margin-bottom: 22px;
+    }
+    .tab-btn {
+      background: #e9eff6;
+      color: var(--adeslas-dark);
+      border: none;
+      padding: 12px 20px;
+      border-radius: 8px 8px 0 0;
+      font-weight: 700;
+      cursor: pointer;
+      font-size: 0.93rem;
+    }
+    .tab-btn.active {
+      background: var(--adeslas-blue);
+      color: #fff;
+    }
+    .tab-panel {
+      display: none;
+      background: #fff;
+      border: 1px solid var(--border);
+      border-radius: 0 10px 10px 10px;
+      padding: 26px;
+      box-shadow: 0 4px 14px rgba(0, 59, 113, 0.05);
+    }
+    .tab-panel.active { display: block; }
+
+    /* Formularios y Controles */
+    .form-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
+      gap: 16px;
+      margin-bottom: 18px;
+    }
+    .form-group {
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+    }
+    .form-group label {
+      font-size: 0.85rem;
+      font-weight: 700;
+      color: var(--adeslas-dark);
+    }
+    .form-group input,
+    .form-group select,
+    .form-group textarea {
+      padding: 10px 12px;
+      border: 1.5px solid #cbd5e1;
+      border-radius: 6px;
+      font-size: 0.93rem;
+      color: var(--text-main);
+    }
+    .form-group input:focus,
+    .form-group select:focus,
+    .form-group textarea:focus {
+      outline: none;
+      border-color: var(--adeslas-blue);
+      box-shadow: 0 0 0 3px rgba(0, 114, 206, 0.15);
+    }
+
+    /* Resultados Cuadro Médico */
+    .results-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(330px, 1fr));
+      gap: 14px;
+      margin-top: 18px;
+    }
+    .center-card {
+      border: 1px solid var(--border);
+      border-left: 4px solid var(--adeslas-blue);
+      border-radius: 8px;
+      padding: 16px;
+      background: #fafcff;
+    }
+    .center-card h4 {
+      color: var(--adeslas-dark);
+      margin-bottom: 4px;
+      font-size: 1rem;
+    }
+    .badge {
+      display: inline-block;
+      padding: 3px 8px;
+      border-radius: 99px;
+      font-size: 0.75rem;
+      font-weight: 700;
+      margin-right: 6px;
+      margin-top: 6px;
+    }
+    .badge-blue { background: var(--adeslas-light); color: var(--adeslas-dark); }
+    .badge-green { background: #dcfce7; color: #166534; }
+    .badge-red { background: #fee2e2; color: #991b1b; }
+
+    /* Alertas de Respuesta */
+    .alert-box {
+      margin-top: 18px;
+      padding: 16px 18px;
+      border-radius: 8px;
+      font-size: 0.94rem;
+      display: none;
+    }
+    .alert-box.show { display: block; }
+    .alert-success {
+      background: #ecfdf5;
+      border: 1.5px solid #10b981;
+      color: #065f46;
+    }
+    .alert-error {
+      background: #fef2f2;
+      border: 1.5px solid #ef4444;
+      color: #991b1b;
+    }
+    .alert-warning {
+      background: #fffbeb;
+      border: 1.5px solid #f59e0b;
+      color: #92400e;
+    }
+
+    /* Tarjeta Digital Simulada */
+    .digital-card {
+      background: linear-gradient(135deg, #003b71 0%, #0072ce 100%);
+      color: #fff;
+      border-radius: 14px;
+      padding: 22px;
+      max-width: 440px;
+      margin-top: 16px;
+      box-shadow: 0 10px 24px rgba(0, 59, 113, 0.25);
+    }
+    .digital-card-num {
+      font-family: 'Consolas', monospace;
+      font-size: 1.25rem;
+      letter-spacing: 2px;
+      margin: 14px 0;
+      color: #7dd3fc;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Barra de Control QAOps Ayesa Digital -->
+  <div class="qaops-banner" data-testid="qaops-banner">
+    <div>
+      <strong>AYESA DIGITAL QAOps Suite</strong> · Simulación activa de <code>segurcaixaadeslas.es/servicios-para-clientes</code>
+    </div>
+    <div>
+      <a href="/alm-dashboard" id="link-alm-dashboard" data-testid="link-alm-dashboard">📊 Abrir Hub ALM (Jira Xray / TestLink / Redmine / JMeter IA)</a>
+      <a href="/api/v1/health" target="_blank" id="link-api-health">⚡ Estado API</a>
+    </div>
+  </div>
+
+  <!-- Cabecera SegurCaixa Adeslas -->
+  <header class="site-header">
+    <div class="header-inner">
+      <div class="brand">
+        <div class="brand-logo">A+</div>
+        <div>
+          <div class="brand-title" id="header-brand-title">SegurCaixa Adeslas</div>
+          <div class="brand-subtitle">Servicios Digitales para Asegurados · Grupo Mutua Madrileña &amp; CaixaBank</div>
+        </div>
+      </div>
+      <div class="header-actions">
+        <span class="phone-pill">📞 Atención 24h: 900 50 50 40</span>
+        <button class="btn-outline" onclick="activateTab('tab-cuadro')" data-testid="header-btn-cuadro">Cuadro Médico</button>
+        <button class="btn-primary" onclick="activateTab('tab-area-cliente')" id="header-btn-area-cliente" data-testid="header-btn-area-cliente">🔐 Área Cliente</button>
+      </div>
+    </div>
+  </header>
+
+  <!-- Hero Principal /servicios-para-clientes -->
+  <section class="hero">
+    <div class="hero-inner">
+      <div>
+        <div class="breadcrumb">Inicio &gt; Particulares &gt; <strong>Servicios para Clientes</strong></div>
+        <h1 id="hero-title" data-testid="hero-title">Todos tus servicios de salud y gestiones online en un único lugar</h1>
+        <p>Consulta el Cuadro Médico de SegurCaixa Adeslas, solicita autorizaciones médicas al instante, tramita el reembolso de tus facturas y accede a orientación médica y videoconsulta 24 horas.</p>
+      </div>
+      <div class="hero-kpis" data-testid="hero-kpis">
+        <div class="kpi-box">
+          <strong>+43.000</strong>
+          <span>Profesionales Sanitarios</span>
+        </div>
+        <div class="kpi-box">
+          <strong>1.300+</strong>
+          <span>Centros Médicos y Hospitales</span>
+        </div>
+        <div class="kpi-box">
+          <strong>24/7</strong>
+          <span>Urgencias y Videoconsulta</span>
+        </div>
+        <div class="kpi-box">
+          <strong>&lt; 2 min</strong>
+          <span>Autorización Digital Online</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Contenido Principal -->
+  <main class="main-container">
+    <!-- Catálogo de 6 Servicios Principales -->
+    <div class="section-heading">
+      <h2>Catálogo de Servicios para Clientes</h2>
+      <span style="font-size:0.85rem;color:var(--text-muted);">Selecciona un servicio para iniciar tu gestión online</span>
+    </div>
+
+    <div class="services-grid" id="catalogo-servicios-grid" data-testid="catalogo-servicios-grid">
+      {% for srv in servicios %}
+      <article class="service-card" id="{{ srv.id }}" data-testid="service-card-{{ srv.codigo }}" onclick="activateTab('{{ srv.tab_target }}')">
+        <div>
+          <div class="service-card-header">
+            <div class="service-icon">{{ srv.icono }}</div>
+            <h3>{{ srv.titulo }}</h3>
+          </div>
+          <p>{{ srv.descripcion }}</p>
+        </div>
+        <div class="service-card-footer">
+          <span>Acceder al servicio →</span>
+          <span>SLA &lt; {{ srv.sla_respuesta_ms }}ms</span>
+        </div>
+      </article>
+      {% endfor %}
+    </div>
+
+    <!-- Pestañas de Gestión Interactiva -->
+    <div class="tabs-bar" role="tablist">
+      <button class="tab-btn active" id="btn-tab-cuadro" data-testid="btn-tab-cuadro" onclick="activateTab('tab-cuadro')">🏥 1. Buscador Cuadro Médico</button>
+      <button class="tab-btn" id="btn-tab-autorizaciones" data-testid="btn-tab-autorizaciones" onclick="activateTab('tab-autorizaciones')">📋 2. Autorizaciones Médicas</button>
+      <button class="tab-btn" id="btn-tab-reembolsos" data-testid="btn-tab-reembolsos" onclick="activateTab('tab-reembolsos')">💶 3. Solicitud de Reembolsos</button>
+      <button class="tab-btn" id="btn-tab-area-cliente" data-testid="btn-tab-area-cliente" onclick="activateTab('tab-area-cliente')">🪪 4. Área Cliente y Tarjeta Digital</button>
+      <button class="tab-btn" id="btn-tab-videoconsulta" data-testid="btn-tab-videoconsulta" onclick="activateTab('tab-videoconsulta')">🩺 5. Videoconsulta y Orientación 24h</button>
+    </div>
+
+    <!-- PANEL 1: CUADRO MÉDICO -->
+    <section class="tab-panel active" id="tab-cuadro" data-testid="panel-cuadro-medico">
+      <h3 style="color:var(--adeslas-dark);margin-bottom:6px;">Buscador de Cuadro Médico y Centros de Urgencias</h3>
+      <p style="font-size:0.9rem;color:var(--text-muted);margin-bottom:16px;">Filtra por provincia, especialidad o modalidad de seguro para encontrar tu centro médico concertado.</p>
+
+      <form id="form-cuadro-medico" onsubmit="buscarCuadroMedico(event)">
+        <div class="form-grid">
+          <div class="form-group">
+            <label for="cm-provincia">Provincia</label>
+            <select id="cm-provincia" name="provincia" data-testid="select-provincia">
+              <option value="Todas">Todas las provincias</option>
+              <option value="Madrid">Madrid</option>
+              <option value="Barcelona">Barcelona</option>
+              <option value="Sevilla">Sevilla</option>
+              <option value="Valencia">Valencia</option>
+              <option value="Bilbao">Bilbao</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label for="cm-especialidad">Especialidad Médica</label>
+            <select id="cm-especialidad" name="especialidad" data-testid="select-especialidad">
+              <option value="Todas">Todas las especialidades</option>
+              <option value="Cardiología">Cardiología</option>
+              <option value="Dermatología">Dermatología</option>
+              <option value="Pediatría">Pediatría</option>
+              <option value="Traumatología">Traumatología</option>
+              <option value="Urgencias 24h">Urgencias 24h</option>
+              <option value="Dental">Dental</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label for="cm-poliza">Modalidad de Póliza / Colectivo</label>
+            <select id="cm-poliza" name="poliza" data-testid="select-poliza">
+              <option value="Todas">Todas las modalidades</option>
+              <option value="Adeslas Plena Plus">Adeslas Plena Plus</option>
+              <option value="Adeslas Plena Vital">Adeslas Plena Vital</option>
+              <option value="Adeslas Seniors">Adeslas Seniors</option>
+              <option value="Adeslas Premier">Adeslas Premier</option>
+              <option value="Muface / Isfas">Muface / Isfas</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label for="cm-query">Hospital, Médico o Calle (Opcional)</label>
+            <input type="text" id="cm-query" name="q" placeholder="Ej. Ruber, Teknon, Goya..." data-testid="input-busqueda-texto" />
+          </div>
+        </div>
+        <button type="submit" class="btn-primary" id="btn-buscar-cuadro" data-testid="btn-buscar-cuadro">🔍 Buscar en Cuadro Médico</button>
+        <span id="cm-contador" data-testid="cm-contador" style="margin-left:14px;font-weight:700;color:var(--adeslas-dark);">
+          Mostrando {{ cuadro_inicial|length }} centros concertados
+        </span>
+      </form>
+
+      <div class="results-grid" id="cm-resultados" data-testid="cm-resultados">
+        {% for c in cuadro_inicial %}
+        <div class="center-card" data-testid="center-card-item">
+          <h4>{{ c.nombre }}</h4>
+          <div style="font-size:0.88rem;color:var(--text-muted);margin-bottom:4px;">👨‍⚕️ {{ c.facultativo }}</div>
+          <div style="font-size:0.86rem;">📍 {{ c.direccion }} ({{ c.provincia }}) · 📞 <strong>{{ c.telefono }}</strong></div>
+          <div>
+            <span class="badge badge-blue">{{ c.especialidad }}</span>
+            {% if c.cita_online %}<span class="badge badge-green">Cita Online Disponible</span>{% endif %}
+            {% if c.urgencias_24h %}<span class="badge badge-red">Urgencias 24h</span>{% endif %}
+          </div>
+        </div>
+        {% endfor %}
+      </div>
+    </section>
+
+    <!-- PANEL 2: AUTORIZACIONES MÉDICAS -->
+    <section class="tab-panel" id="tab-autorizaciones" data-testid="panel-autorizaciones">
+      <h3 style="color:var(--adeslas-dark);margin-bottom:6px;">Solicitud de Autorizaciones Médicas Online</h3>
+      <p style="font-size:0.9rem;color:var(--text-muted);margin-bottom:16px;">Introduce los datos de tu Tarjeta Sanitaria Adeslas y el número de volante o prescripción entregada por tu facultativo.</p>
+
+      <form id="form-autorizaciones" onsubmit="enviarAutorizacion(event)">
+        <div class="form-grid">
+          <div class="form-group">
+            <label for="aut-tarjeta">Nº Tarjeta Adeslas (12-16 dígitos) *</label>
+            <input type="text" id="aut-tarjeta" placeholder="8000123456789012" data-testid="input-aut-tarjeta" />
+          </div>
+          <div class="form-group">
+            <label for="aut-tipo-acto">Tipo de Prueba / Acto Médico *</label>
+            <select id="aut-tipo-acto" data-testid="select-aut-tipo">
+              <option value="Resonancia Magnética Nuclear (RMN)">Resonancia Magnética Nuclear (RMN)</option>
+              <option value="TAC / Escáner Diagnóstico">TAC / Escáner Diagnóstico</option>
+              <option value="Sesiones de Rehabilitación y Fisioterapia">Sesiones de Rehabilitación y Fisioterapia</option>
+              <option value="Cirugía Ambulatoria Oftalmológica">Cirugía Ambulatoria Oftalmológica</option>
+              <option value="Estudio Genético Oncológico">Estudio Genético Oncológico (Requiere Inspección)</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label for="aut-prescripcion">Código de Volante / Prescripción *</label>
+            <input type="text" id="aut-prescripcion" placeholder="Ej. RX-99281" data-testid="input-aut-prescripcion" />
+          </div>
+          <div class="form-group">
+            <label for="aut-centro">Centro Médico / Hospital Realizador *</label>
+            <input type="text" id="aut-centro" placeholder="Ej. Hospital Ruber Internacional" data-testid="input-aut-centro" />
+          </div>
+        </div>
+        <button type="submit" class="btn-primary" id="btn-solicitar-autorizacion" data-testid="btn-solicitar-autorizacion">✅ Tramitar Autorización Ahora</button>
+      </form>
+
+      <div id="aut-resultado-alert" class="alert-box" role="alert" data-testid="aut-resultado-alert"></div>
+    </section>
+
+    <!-- PANEL 3: REEMBOLSOS DE GASTOS MÉDICOS -->
+    <section class="tab-panel" id="tab-reembolsos" data-testid="panel-reembolsos">
+      <h3 style="color:var(--adeslas-dark);margin-bottom:6px;">Tramitación de Reembolso de Facturas Médicas</h3>
+      <p style="font-size:0.9rem;color:var(--text-muted);margin-bottom:16px;">Para pólizas de Reembolso (Adeslas Premier 90% y Adeslas Extra 80%). Registra tu factura y calcula tu abono al instante.</p>
+
+      <form id="form-reembolsos" onsubmit="enviarReembolso(event)">
+        <div class="form-grid">
+          <div class="form-group">
+            <label for="rmb-nif">NIF / NIE del Titular *</label>
+            <input type="text" id="rmb-nif" placeholder="12345678Z" data-testid="input-rmb-nif" />
+          </div>
+          <div class="form-group">
+            <label for="rmb-modalidad">Modalidad de Póliza de Reembolso *</label>
+            <select id="rmb-modalidad" data-testid="select-rmb-modalidad">
+              <option value="Adeslas Premier (90%)">Adeslas Premier (90% Cobertura)</option>
+              <option value="Adeslas Extra (80%)">Adeslas Extra (80% Cobertura)</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label for="rmb-importe">Importe Total Factura (€) *</label>
+            <input type="number" step="0.01" id="rmb-importe" placeholder="250.00" data-testid="input-rmb-importe" />
+          </div>
+          <div class="form-group">
+            <label for="rmb-iban">Cuenta IBAN de Abono (ES + 22 dígitos) *</label>
+            <input type="text" id="rmb-iban" placeholder="ES9121000418450200051332" data-testid="input-rmb-iban" />
+          </div>
+        </div>
+        <button type="submit" class="btn-primary" id="btn-enviar-reembolso" data-testid="btn-enviar-reembolso">💶 Registrar Solicitud de Reembolso</button>
+      </form>
+
+      <div id="rmb-resultado-alert" class="alert-box" role="alert" data-testid="rmb-resultado-alert"></div>
+    </section>
+
+    <!-- PANEL 4: ÁREA CLIENTE Y TARJETA DIGITAL -->
+    <section class="tab-panel" id="tab-area-cliente" data-testid="panel-area-cliente">
+      <h3 style="color:var(--adeslas-dark);margin-bottom:6px;">Acceso al Área Cliente y Tarjeta Sanitaria Digital</h3>
+      <p style="font-size:0.9rem;color:var(--text-muted);margin-bottom:16px;">Accede con tus credenciales de prueba QAOps (NIF: <code>12345678Z</code> / Clave: <code>Adeslas2026!</code>) para consultar tus pólizas y tarjeta digital.</p>
+
+      <form id="form-login-cliente" onsubmit="loginAreaCliente(event)">
+        <div class="form-grid" style="max-width:620px;">
+          <div class="form-group">
+            <label for="login-nif">NIF / NIE / Tarjeta *</label>
+            <input type="text" id="login-nif" placeholder="12345678Z" data-testid="input-login-nif" />
+          </div>
+          <div class="form-group">
+            <label for="login-password">Contraseña *</label>
+            <input type="password" id="login-password" placeholder="Adeslas2026!" data-testid="input-login-password" />
+          </div>
+        </div>
+        <button type="submit" class="btn-primary" id="btn-login-cliente" data-testid="btn-login-cliente">🔐 Entrar en Área Cliente</button>
+      </form>
+
+      <div id="login-resultado-alert" class="alert-box" role="alert" data-testid="login-resultado-alert"></div>
+    </section>
+
+    <!-- PANEL 5: VIDEOCONSULTA Y ORIENTACIÓN MÉDICA -->
+    <section class="tab-panel" id="tab-videoconsulta" data-testid="panel-videoconsulta">
+      <h3 style="color:var(--adeslas-dark);margin-bottom:6px;">Salud Digital: Videoconsulta y Orientación Médica 24h</h3>
+      <p style="font-size:0.9rem;color:var(--text-muted);margin-bottom:16px;">Solicita asistencia médica inmediata por videollamada o llamada telefónica con nuestros especialistas.</p>
+
+      <form id="form-videoconsulta" onsubmit="reservarVideoconsulta(event)">
+        <div class="form-grid">
+          <div class="form-group">
+            <label for="vc-especialidad">Especialidad de Orientación *</label>
+            <select id="vc-especialidad" data-testid="select-vc-especialidad">
+              <option value="Medicina General">Medicina General (24h)</option>
+              <option value="Pediatría">Orientación Pediátrica</option>
+              <option value="Psicología y Bienestar">Orientación Psicoemocional</option>
+              <option value="Cardiología">Consulta Resultados Cardiología</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label for="vc-modalidad">Canal de Atención *</label>
+            <select id="vc-modalidad" data-testid="select-vc-modalidad">
+              <option value="Videoconsulta Inmediata">Videoconsulta Inmediata (Sala WebRTC)</option>
+              <option value="Orientación Telefónica 24h">Orientación Telefónica 24h</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label for="vc-motivo">Motivo de la consulta *</label>
+            <input type="text" id="vc-motivo" placeholder="Ej. Revisión de analítica y ajuste de medicación" data-testid="input-vc-motivo" />
+          </div>
+        </div>
+        <button type="submit" class="btn-primary" id="btn-reservar-vc" data-testid="btn-reservar-vc">🩺 Solicitar Videoconsulta / Orientación</button>
+      </form>
+
+      <div id="vc-resultado-alert" class="alert-box" role="alert" data-testid="vc-resultado-alert"></div>
+    </section>
+  </main>
+
+  <script>
+    function activateTab(tabId) {
+      document.querySelectorAll('.tab-panel').forEach(p => p.classList.remove('active'));
+      document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+      const targetPanel = document.getElementById(tabId);
+      if (targetPanel) targetPanel.classList.add('active');
+      const mapBtn = {
+        'tab-cuadro': 'btn-tab-cuadro',
+        'tab-autorizaciones': 'btn-tab-autorizaciones',
+        'tab-reembolsos': 'btn-tab-reembolsos',
+        'tab-area-cliente': 'btn-tab-area-cliente',
+        'tab-videoconsulta': 'btn-tab-videoconsulta'
+      };
+      const btn = document.getElementById(mapBtn[tabId]);
+      if (btn) btn.classList.add('active');
+    }
+
+    async function buscarCuadroMedico(e) {
+      e.preventDefault();
+      const provincia = document.getElementById('cm-provincia').value;
+      const especialidad = document.getElementById('cm-especialidad').value;
+      const poliza = document.getElementById('cm-poliza').value;
+      const q = document.getElementById('cm-query').value;
+
+      const params = new URLSearchParams({ provincia, especialidad, poliza, q });
+      const res = await fetch('/api/v1/cuadro-medico?' + params.toString());
+      const data = await res.json();
+
+      document.getElementById('cm-contador').textContent = `Mostrando ${data.total} centros concertados`;
+      const container = document.getElementById('cm-resultados');
+      if (data.resultados.length === 0) {
+        container.innerHTML = `<div class="alert-box show alert-warning" data-testid="cm-sin-resultados">No se encontraron centros con los criterios seleccionados.</div>`;
+        return;
+      }
+      container.innerHTML = data.resultados.map(c => `
+        <div class="center-card" data-testid="center-card-item">
+          <h4>${c.nombre}</h4>
+          <div style="font-size:0.88rem;color:var(--text-muted);margin-bottom:4px;">👨‍⚕️ ${c.facultativo}</div>
+          <div style="font-size:0.86rem;">📍 ${c.direccion} (${c.provincia}) · 📞 <strong>${c.telefono}</strong></div>
+          <div>
+            <span class="badge badge-blue">${c.especialidad}</span>
+            ${c.cita_online ? '<span class="badge badge-green">Cita Online Disponible</span>' : ''}
+            ${c.urgencias_24h ? '<span class="badge badge-red">Urgencias 24h</span>' : ''}
+          </div>
+        </div>
+      `).join('');
+    }
+
+    async function enviarAutorizacion(e) {
+      e.preventDefault();
+      const payload = {
+        numTarjeta: document.getElementById('aut-tarjeta').value,
+        tipoActo: document.getElementById('aut-tipo-acto').value,
+        codigoPrescripcion: document.getElementById('aut-prescripcion').value,
+        centroMedico: document.getElementById('aut-centro').value
+      };
+      const alertBox = document.getElementById('aut-resultado-alert');
+      const res = await fetch('/api/v1/autorizaciones', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(payload)
+      });
+      const data = await res.json();
+      if (!res.ok || !data.ok) {
+        alertBox.className = 'alert-box show alert-error';
+        alertBox.innerHTML = `<strong>Error en la validación:</strong> ${data.mensaje}`;
+        return;
+      }
+      const aut = data.autorizacion;
+      const isPending = aut.estado === 'PENDIENTE_REVISION_MEDICA';
+      alertBox.className = 'alert-box show ' + (isPending ? 'alert-warning' : 'alert-success');
+      alertBox.innerHTML = `
+        <strong>Estado: <span data-testid="aut-estado-valor">${aut.estado}</span></strong><br/>
+        Código de Autorización: <strong data-testid="aut-codigo-valor">${aut.codigoAutorizacion}</strong><br/>
+        Centro: ${aut.centroMedico} · Acto: ${aut.tipoActo}<br/>
+        <span>${aut.mensaje}</span>
+      `;
+    }
+
+    async function enviarReembolso(e) {
+      e.preventDefault();
+      const payload = {
+        nif: document.getElementById('rmb-nif').value,
+        modalidadPoliza: document.getElementById('rmb-modalidad').value,
+        importeFactura: document.getElementById('rmb-importe').value,
+        iban: document.getElementById('rmb-iban').value
+      };
+      const alertBox = document.getElementById('rmb-resultado-alert');
+      const res = await fetch('/api/v1/reembolsos', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(payload)
+      });
+      const data = await res.json();
+      if (!res.ok || !data.ok) {
+        alertBox.className = 'alert-box show alert-error';
+        alertBox.innerHTML = `<strong>Error en solicitud de reembolso:</strong> ${data.mensaje}`;
+        return;
+      }
+      const rmb = data.reembolso;
+      alertBox.className = 'alert-box show alert-success';
+      alertBox.innerHTML = `
+        <strong>Expediente Registrado: <span data-testid="rmb-expediente-valor">${rmb.expediente}</span></strong><br/>
+        Cobertura aplicada: <strong>${rmb.porcentajeCobertura}%</strong> (${rmb.modalidadPoliza})<br/>
+        Importe estimado a abonar: <strong data-testid="rmb-importe-abonado">${rmb.importeEstimadoReembolso.toFixed(2)} EUR</strong> en cuenta ${rmb.ibanAbono}.
+      `;
+    }
+
+    async function loginAreaCliente(e) {
+      e.preventDefault();
+      const payload = {
+        nif: document.getElementById('login-nif').value,
+        password: document.getElementById('login-password').value
+      };
+      const alertBox = document.getElementById('login-resultado-alert');
+      const res = await fetch('/api/v1/auth/login', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(payload)
+      });
+      const data = await res.json();
+      if (!res.ok || !data.ok) {
+        alertBox.className = 'alert-box show alert-error';
+        alertBox.innerHTML = `<strong>Acceso denegado:</strong> ${data.mensaje}`;
+        return;
+      }
+      const c = data.cliente;
+      alertBox.className = 'alert-box show alert-success';
+      alertBox.innerHTML = `
+        <div><strong>Bienvenido/a al Área Cliente, <span data-testid="cliente-nombre-titular">${c.nombre}</span></strong></div>
+        <div>Póliza Activa: <strong data-testid="cliente-num-poliza">${c.num_poliza}</strong> · Modalidad: ${c.modalidad}</div>
+        <div>Estado: ${c.estado_poliza}</div>
+        <div class="digital-card" data-testid="tarjeta-digital-adeslas">
+          <div style="font-size:0.8rem;opacity:0.9;">TARJETA SANITARIA DIGITAL · SEGURCAIXA ADESLAS</div>
+          <div class="digital-card-num" data-testid="tarjeta-digital-numero">${c.num_tarjeta}</div>
+          <div style="display:flex;justify-content:space-between;font-size:0.86rem;">
+            <span>TITULAR: ${c.nombre}</span>
+            <span>PÓLIZA: ${c.num_poliza}</span>
+          </div>
+        </div>
+      `;
+    }
+
+    async function reservarVideoconsulta(e) {
+      e.preventDefault();
+      const payload = {
+        especialidad: document.getElementById('vc-especialidad').value,
+        modalidadCita: document.getElementById('vc-modalidad').value,
+        motivoConsulta: document.getElementById('vc-motivo').value
+      };
+      const alertBox = document.getElementById('vc-resultado-alert');
+      const res = await fetch('/api/v1/citas', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(payload)
+      });
+      const data = await res.json();
+      if (!res.ok || !data.ok) {
+        alertBox.className = 'alert-box show alert-error';
+        alertBox.innerHTML = `<strong>Atención:</strong> ${data.mensaje}`;
+        return;
+      }
+      const cita = data.cita;
+      alertBox.className = 'alert-box show alert-success';
+      alertBox.innerHTML = `
+        <strong>Cita Confirmada: <span data-testid="vc-codigo-cita">${cita.codigoCita}</span></strong><br/>
+        Facultativo asignado: <strong>${cita.facultativoAsignado}</strong> (${cita.especialidad})<br/>
+        Sala Virtual: <code>${cita.salaVirtualUrl}</code>
+      `;
+    }
+  </script>
+</body>
+</html>

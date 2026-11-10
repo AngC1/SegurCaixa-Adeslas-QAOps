@@ -1,0 +1,27 @@
+pipeline {
+    agent any
+    options {
+        timestamps()
+    }
+    environment {
+        ADESLAS_BASE_URL = "http://127.0.0.1:8080"
+        QAOPS_BROWSER = "auto"
+    }
+    stages {
+        stage('1. Prepare Environment') {
+            steps {
+                bat 'python -m pip install -r requirements.txt'
+            }
+        }
+        stage('2. Execute QAOps End-to-End & Performance Gate') {
+            steps {
+                bat 'python run_qaops_suite.py'
+            }
+        }
+    }
+    post {
+        always {
+            archiveArtifacts artifacts: 'jmeter-ai/results/*.*, selenium-qaops/reports/*.*, alm-backlog/**/*.*', allowEmptyArchive: true
+        }
+    }
+}
